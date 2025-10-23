@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FinalProjectSaleh</string>
+    <!-- Add these lines to your strings.xml -->
+    <string name="register_header">Start Your Adventure</string>
+    <string name="email_hint">Email</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="register_button">Sign Up &amp; Explore</string>
+    <string name="login_link">Already have an account? &lt;b>Log In&lt;/b></string>
+
+    <!-- Content Descriptions for Accessibility -->
+    <string name="icon_desc_email">Email Icon</string>
+    <string name="icon_desc_person">Person Icon</string>
+    <string name="icon_desc_lock">Lock Icon</string>
+    <string name="phone_hint">Phone Number</string>
+</resources>
