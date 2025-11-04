@@ -69,7 +69,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@mipmap/ic_map_foreground"
-                    app:tint="?attr/colorPrimary" />
+                    app:tint="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -102,8 +102,8 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_suitcase"
-                    app:tint="?attr/colorPrimary" />
+                    android:src="@mipmap/ic_suitcase"
+                    app:tint="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,8 +136,8 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_explore"
-                    app:tint="?attr/colorPrimary" />
+                    android:src="@mipmap/ic_exeplor"
+                    app:tint="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@mipmap/ic_launcher_foreground"
-                    app:tint="?attr/colorPrimary" />
+                    app:tint="?attr/colorOnSurface" />
 
                 <TextView
                     android:layout_width="wrap_content"
