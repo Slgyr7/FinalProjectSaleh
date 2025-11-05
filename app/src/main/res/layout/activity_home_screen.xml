@@ -39,7 +39,7 @@
     <GridLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="120dp"
         android:columnCount="2"
         android:rowCount="2"
         android:useDefaultMargins="true"
