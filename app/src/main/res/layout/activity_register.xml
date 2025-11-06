@@ -9,24 +9,22 @@
     tools:context=".Register">
 
     <!-- Screen Title -->
-
-    <!-- CardView to group login fields for a modern, elevated look -->
     <TextView
         android:id="@+id/headerTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="32dp"
         android:text="Join Us Today"
         android:textColor="?attr/colorPrimary"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/formCardView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- CardView to group login fields for a modern, elevated look -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/formCardView"
         android:layout_width="0dp"
@@ -37,6 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintWidth_percent="0.9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,16 +43,36 @@
             android:layout_height="match_parent"
             android:padding="24dp">
 
-            <!-- Email Input Field -->
+            <!-- 1. Username Input Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/usernameLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconDrawable="@drawable/ic_person">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/usernameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 2. Email Input Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/usernameLayout"
                 app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -63,7 +82,28 @@
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Phone Number Input Field -->
+            <!-- 3. Password Input Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailLayout"
+                app:passwordToggleEnabled="true"
+                app:startIconDrawable="@drawable/ic_lock">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 4. Phone Number Input Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phoneLayout"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -83,85 +123,35 @@
                     android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <!-- Username Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/usernameLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Username"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emailLayout"
-                app:startIconDrawable="@drawable/ic_person">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"    android:src="@drawable/ic_lock"
-                    app:tint="?attr/colorOnSurface" />
-
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/usernameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Password Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Password"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/usernameLayout"
-                app:passwordToggleEnabled="true"
-                app:startIconDrawable="@drawable/ic_lock">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/passwordEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
     <!-- Register Button -->
-
-    <!-- Link to Login Screen -->
     <Button
         android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:padding="16dp"
         android:text="Create Account"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/formCardView"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/formCardView"
         app:layout_constraintTop_toBottomOf="@+id/formCardView" />
 
+    <!-- Link to Login Screen -->
     <TextView
         android:id="@+id/loginLinkTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:padding="8dp"
-        android:text="Already have an account? <b>Log In</b>"
+        android:text="Already have an account? &lt;b>Log In&lt;/b>"
         android:textColor="?attr/colorOnSurface"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
