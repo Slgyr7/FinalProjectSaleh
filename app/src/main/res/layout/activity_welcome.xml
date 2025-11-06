@@ -144,30 +144,47 @@
         app:layout_constraintTop_toBottomOf="@+id/login_card" />
 
     <!-- Social Login Buttons Container -->
+    <!-- Social Login Buttons Container -->
+
+
+    <!-- Register section at the very bottom -->
+
     <LinearLayout
         android:id="@+id/social_login_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/or_separator">
 
         <!-- Google Login Button -->
         <ImageButton
             android:id="@+id/google_login_button"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:background="@drawable/social_button_background"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Log in with Google"
             android:padding="12dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_google_logo" />
+            android:src="@mipmap/finalgoogle_foreground" />
+
+        <!-- Facebook Login Button (NEW) -->
+        <ImageButton
+            android:id="@+id/facebook_login_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Log in with Facebook"
+            android:padding="12dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/facebook_foreground" />
 
     </LinearLayout>
 
-    <!-- Register section at the very bottom -->
     <LinearLayout
         android:id="@+id/register_section"
         android:layout_width="wrap_content"

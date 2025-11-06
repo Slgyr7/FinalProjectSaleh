@@ -2,4 +2,22 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Your App's Main Brand Color -->
+    <color name="md_theme_primary">#00658E</color> <!-- A nice, professional blue -->
+
+    <!-- Supporting Colors -->
+    <color name="md_theme_onPrimary">#FFFFFF</color> <!-- Text/icons on top of the primary color -->
+    <color name="md_theme_secondary">#4F616E</color> <!-- For less important buttons/filters -->
+    <color name="md_theme_onSecondary">#FFFFFF</color>
+
+    <!-- Background and Surface Colors -->
+    <color name="md_theme_surface">#F0F4F8</color> <!-- Your current background color! -->
+    <color name="md_theme_onSurface">#191C1E</color> <!-- A slightly softer black for text -->
+    <color name="md_theme_onSurfaceVariant">#42474E</color>
+ <!-- For subtitles and hints -->
+
+    <!-- You can add your black and white here too -->
+    <!-- <color name="black">#000000</color> -->
+
+    <!-- <color name="white">#FFFFFF</color> -->
 </resources>
