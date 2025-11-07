@@ -169,7 +169,7 @@
             android:contentDescription="Log in with Google"
             android:padding="12dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/finalgoogle_foreground" />
+            android:src="@mipmap/ic_google_foreground" />
 
         <!-- Facebook Login Button (NEW) -->
         <ImageButton
@@ -202,7 +202,7 @@
             android:text="Don't have an account?" />
 
         <Button
-            android:id="@+id/register_button"
+            android:id="@+id/regbtn"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
