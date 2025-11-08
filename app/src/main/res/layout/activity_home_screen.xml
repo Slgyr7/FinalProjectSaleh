@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conlayh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F4F8"
@@ -14,9 +15,9 @@
         android:layout_height="48dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
+        android:contentDescription="User Profile"
         android:padding="8dp"
         android:scaleType="centerCrop"
-        android:contentDescription="User Profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
@@ -130,7 +131,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@mipmap/ic_suitcase"
-                    app:tint="?attr/colorPrimary"/>
+                    app:tint="?attr/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"

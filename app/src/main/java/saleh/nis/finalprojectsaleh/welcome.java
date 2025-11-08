@@ -3,7 +3,8 @@ package saleh.nis.finalprojectsaleh; // Make sure this package name is correct
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button; // Make sure to import Button
+import android.widget.Button; // Import the Button class
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -18,31 +19,40 @@ public class welcome extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_welcome);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        // This listener handles padding for system bars, which is correct.
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.conlayw), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // --- CORRECTED CODE TO ADD ---
+        // --- CORRECTED FUNCTIONAL BUTTONS ---
 
-        // 1. Find the "Sign Up" button using its CORRECT ID from the XML
-        Button signUpButton = findViewById(R.id.regbtn); // Use R.id.regbtn, NOT a different ID
+        // 1. Find the buttons using their correct and current IDs from the XML
+        Button logInButton = findViewById(R.id.login_button); // Correct ID for the main login button
+        Button signUpButton = findViewById(R.id.regbtn);      // Correct ID for the "Sign Up" text button
 
-        // 2. Set an OnClickListener on the button
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        // 2. Set the OnClickListener for the "Log In" button
+        logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This code will run when the "Sign Up" button is clicked
+                // This code runs when the "Log In" button is clicked.
+                // TODO: You will add authentication logic here later (checking email/password).
 
-                // 3. Create an Intent to open the Register activity
-                Intent intent = new Intent(welcome.this, Register.class);
-
-                // 4. Start the new activity
+                // Navigate to the main screen after successful login.
+                Intent intent = new Intent(welcome.this, HomeScreen.class); // Assuming your home screen is HomeScreen.java
                 startActivity(intent);
             }
         });
 
-        // --- End of the corrected code ---
+        // 3. Set the OnClickListener for the "Sign Up" button
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // This code runs when the "Sign Up" text button is clicked.
+                Intent intent = new Intent(welcome.this, Register.class); // Navigates to the Register screen
+                startActivity(intent);
+            }
+        });
     }
 }

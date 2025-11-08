@@ -1,11 +1,10 @@
 package saleh.nis.finalprojectsaleh;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-
+import android.widget.Button; // 1. IMPORT the Button class
+import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -13,24 +12,57 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Register extends AppCompatActivity {
-    private Button backbtn;
-    @SuppressLint({"WrongViewCast", "MissingInflatedId"})
+
+    // Declare the views for the buttons
+    private ImageView backButton;
+    private Button createAccountButton; // 2. DECLARE the create account button
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+
+        // This listener handles the edge-to-edge display and is correct.
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.conlayr), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        backbtn = findViewById(R.id.back_btn);
-        backbtn.setOnClickListener(new View.OnClickListener() {
+
+        // --- Back Button Functionality (already working) ---
+        backButton = findViewById(R.id.back_btn);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate back to the 'welcome' activity
                 Intent intent = new Intent(Register.this, welcome.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+
+        // --- NEW: "CREATE ACCOUNT" BUTTON FUNCTIONALITY ---
+
+        // 3. FIND the "Create Account" button by its ID from the XML
+        createAccountButton = findViewById(R.id.registerButton);
+
+        // 4. SET an OnClickListener on the button
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // This code runs when the "Create Account" button is clicked.
+
+                // TODO: Before navigating, you should get text from EditText fields
+                // and perform user registration logic (e.g., save to a database).
+
+                // For now, we will navigate directly to the HomeScreen.
+                Intent intent = new Intent(Register.this, HomeScreen.class);
+                startActivity(intent);
+
+                // Finish both Register and Welcome activities so the user cannot go back to them
+                // after creating an account. This provides a clean navigation flow.
+                finishAffinity();
             }
         });
     }
