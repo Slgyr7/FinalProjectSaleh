@@ -198,7 +198,7 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@mipmap/ic_launcher_foreground"
+                    android:src="@mipmap/ic_translat_foreground"
                     app:tint="?attr/colorPrimary" />
 
                 <TextView
