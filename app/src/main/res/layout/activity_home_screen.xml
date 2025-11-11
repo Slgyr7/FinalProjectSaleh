@@ -1,48 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/conlayh"
+    android:id="@+id/home_screen_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F4F8"
     tools:context=".HomeScreen">
 
-    <!-- User Profile Icon in the top-right corner (FIXED) -->
-    <ImageView
-        android:id="@+id/profile_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="24dp"
-        android:contentDescription="User Profile"
-        android:padding="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
-    <!-- Header Section -->
+    <!-- Header: Welcome Message -->
     <TextView
         android:id="@+id/welcome_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="Hello, Saleh!"
         android:textColor="@android:color/black"
         android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_icon"
         app:layout_constraintEnd_toStartOf="@+id/profile_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profile_icon" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Header: Subtitle -->
     <TextView
         android:id="@+id/header_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:text="Where do you want to go today?"
         android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="16sp"
@@ -50,40 +37,79 @@
         app:layout_constraintStart_toStartOf="@id/welcome_message"
         app:layout_constraintTop_toBottomOf="@id/welcome_message" />
 
-    <!-- Search Bar (Feature 1) (FIXED) -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
+    <!-- User Profile Icon -->
+    <ImageView
+        android:id="@+id/profile_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="User Profile"
+        android:focusable="true"
+        android:padding="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/header_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/welcome_message"
+        tools:src="@tools:sample/avatars" />
+
+    <!-- Search Bar Section -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/search_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/searchbarbg_background"
-        app:iconifiedByDefault="false"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="@id/profile_icon"
         app:layout_constraintStart_toStartOf="@id/welcome_message"
-        app:layout_constraintTop_toBottomOf="@id/header_subtitle"
-        app:queryHint="Search for a destination..." />
+        app:layout_constraintTop_toBottomOf="@id/header_subtitle">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:closeIcon="@mipmap/ic_close_foreground"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Search for a destination..."
+            app:searchHintIcon="@null"
+            app:searchIcon="@mipmap/ic_search_foreground" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--
+        Voice Search FAB: Removed.
+        The SearchView has its own built-in voice search functionality.
+        You can enable it by adding `android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"`
+        to your `searchable.xml` resource file, which is a cleaner implementation.
+    -->
 
     <!-- Grid of Feature Cards -->
     <GridLayout
+        android:id="@+id/features_grid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:columnCount="2"
-        android:rowCount="2"
-        android:useDefaultMargins="true"
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false"
         app:layout_constraintEnd_toEndOf="@id/profile_icon"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/welcome_message"
-        app:layout_constraintTop_toBottomOf="@id/search_view">
+        app:layout_constraintTop_toBottomOf="@id/search_card"> <!-- FIXED: Constrained to the card, not the view inside it -->
 
         <!-- Card 1: Plan a Trip -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_plan_trip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
-            app:cardCornerRadius="12dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
             <LinearLayout
@@ -104,20 +130,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Plan a Trip"
-                    android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Card 2: My Trips -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_my_trips"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
-            app:cardCornerRadius="12dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
             <LinearLayout
@@ -138,20 +164,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="My Trips"
-                    android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Card 3: Explore Nearby -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_explore"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
-            app:cardCornerRadius="12dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
             <LinearLayout
@@ -172,20 +198,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Explore Nearby"
-                    android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Card 4: Translator -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_translator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
-            app:cardCornerRadius="12dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
             <LinearLayout
@@ -206,11 +232,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Translator"
-                    android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </GridLayout>
 
