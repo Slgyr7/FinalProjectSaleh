@@ -1,4 +1,4 @@
-package saleh.nis.finalprojectsaleh.data.MyUserTable;
+package saleh.nis.finalprojectsaleh.data.UserProfileTable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
