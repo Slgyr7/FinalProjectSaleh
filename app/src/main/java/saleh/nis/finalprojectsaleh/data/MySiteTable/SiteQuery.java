@@ -22,10 +22,11 @@ public interface SiteQuery {
     void insertAll(site... sites);
     @Delete
     void delete(site site);
-    @Query("DELETE FROM site WHERE KeyId=:kid")
-    void deletesite(int kid);
+    @Query("DELETE FROM site WHERE KeyId=:keyid")
+    void deletesite(long keyid);
     @Update
     void update(site site);
 
-
+    @Query("SELECT * FROM site WHERE Category =:keyid"+" ORDER BY Category desc")
+List<site> getAllSiteByType(long keyid);
 }
