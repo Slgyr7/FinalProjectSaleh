@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button; // Import the Button class
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,5 +55,18 @@ public class welcome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // 4. Set the OnClickListener for the "Forgot Password" button
+        TextView forgotPasswordButton = findViewById(R.id.forgot_password_button);
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // This code runs when the "Forgot Password" button is clicked
+                // You'll need to create a ForgotPasswordActivity and add it to your AndroidManifest.xml
+                Intent intent = new Intent(welcome.this, ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
+        
     }
 }
