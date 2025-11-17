@@ -11,11 +11,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class Register extends AppCompatActivity {
 
-    // Declare the views for the buttons
+    // Declare the views for the buttons and input fields
     private ImageView backButton;
     private Button createAccountButton; // 2. DECLARE the create account button
+    private com.google.android.material.textfield.TextInputEditText username, email, password, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,17 @@ public class Register extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+username= findViewById(R.id.ET_username);
 
+email= findViewById(R.id.ET_email);
+password= findViewById(R.id.ET_password);
+phone= findViewById(R.id.ET_phone);
+        // Initialize input fields
+        username = findViewById(R.id.ET_username);
+        email = findViewById(R.id.ET_email);
+        password = findViewById(R.id.ET_password);
+        phone = findViewById(R.id.ET_phone);
+        
         // --- Back Button Functionality (already working) ---
         backButton = findViewById(R.id.back_btn);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +58,7 @@ public class Register extends AppCompatActivity {
         // --- NEW: "CREATE ACCOUNT" BUTTON FUNCTIONALITY ---
 
         // 3. FIND the "Create Account" button by its ID from the XML
-        createAccountButton = findViewById(R.id.registerButton);
+        createAccountButton = findViewById(R.id.btn_create);
 
         // 4. SET an OnClickListener on the button
         createAccountButton.setOnClickListener(new View.OnClickListener() {

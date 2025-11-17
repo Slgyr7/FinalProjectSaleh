@@ -11,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class HomeScreen extends AppCompatActivity {
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +21,7 @@ public class HomeScreen extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
     }
 }
