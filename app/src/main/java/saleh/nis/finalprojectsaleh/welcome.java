@@ -1,72 +1,139 @@
-package saleh.nis.finalprojectsaleh; // Make sure this package name is correct
+package saleh.nis.finalprojectsaleh;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.Button; // Import the Button class
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 public class welcome extends AppCompatActivity {
+    // SharedPreferences keys
+    private static final String PREF_NAME = "UserData";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
+    
+    // UI elements
+    private TextInputEditText emailEditText, passwordEditText;
+    private TextInputLayout emailInputLayout, passwordInputLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_welcome);
 
-        // This listener handles padding for system bars, which is correct.
+        // Initialize UI elements
+        initializeViews();
+        setupClickListeners();
+        
+        // Handle system window insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.conlayw), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // --- CORRECTED FUNCTIONAL BUTTONS ---
-
-        // 1. Find the buttons using their correct and current IDs from the XML
-        Button logInButton = findViewById(R.id.login_button); // Correct ID for the main login button
-        Button signUpButton = findViewById(R.id.regbtn);      // Correct ID for the "Sign Up" text button
-
-        // 2. Set the OnClickListener for the "Log In" button
+    }
+    
+    private void initializeViews() {
+        // Find views
+        emailEditText = findViewById(R.id.email_edit_text);
+        passwordEditText = findViewById(R.id.password_edit_text);
+        emailInputLayout = findViewById(R.id.email_input_layout);
+        passwordInputLayout = findViewById(R.id.password_input_layout);
+    }
+    
+    private void setupClickListeners() {
+        // Login Button
+        Button logInButton = findViewById(R.id.login_button);
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This code runs when the "Log In" button is clicked.
-                // TODO: You will add authentication logic here later (checking email/password).
-
-                // Navigate to the main screen after successful login.
-                Intent intent = new Intent(welcome.this, HomeScreen.class); // Assuming your home screen is HomeScreen.java
-                startActivity(intent);
+                attemptLogin();
             }
         });
 
-        // 3. Set the OnClickListener for the "Sign Up" button
+        // Sign Up Button
+        Button signUpButton = findViewById(R.id.regbtn);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This code runs when the "Sign Up" text button is clicked.
-                Intent intent = new Intent(welcome.this, Register.class); // Navigates to the Register screen
+                Intent intent = new Intent(welcome.this, Register.class);
                 startActivity(intent);
             }
         });
 
-        // 4. Set the OnClickListener for the "Forgot Password" button
+        // Forgot Password Button
         TextView forgotPasswordButton = findViewById(R.id.forgot_password_button);
         forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This code runs when the "Forgot Password" button is clicked
-                // You'll need to create a ForgotPasswordActivity and add it to your AndroidManifest.xml
                 Intent intent = new Intent(welcome.this, ForgotPassword.class);
                 startActivity(intent);
             }
         });
+    }
+    
+    private void attemptLogin() {
+        // Reset errors
+        emailInputLayout.setError(null);
+        passwordInputLayout.setError(null);
         
+        // Get values
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        
+        // Validate inputs
+        if (TextUtils.isEmpty(email)) {
+            emailInputLayout.setError("Email is required");
+            emailEditText.requestFocus();
+            return;
+        }
+        
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailInputLayout.setError("Please enter a valid email");
+            emailEditText.requestFocus();
+            return;
+        }
+        
+        if (TextUtils.isEmpty(password)) {
+            passwordInputLayout.setError("Password is required");
+            passwordEditText.requestFocus();
+            return;
+        }
+        
+        // Check credentials
+        if (validateCredentials(email, password)) {
+            // Login successful
+            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(welcome.this, HomeScreen.class);
+            startActivity(intent);
+            finish();
+        } else {
+            // Login failed
+            passwordInputLayout.setError("Invalid email or password");
+            passwordEditText.requestFocus();
+            Toast.makeText(this, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    private boolean validateCredentials(String email, String password) {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        String savedEmail = sharedPreferences.getString(KEY_EMAIL, "");
+        String savedPassword = sharedPreferences.getString(KEY_PASSWORD, "");
+        
+        // In a real app, you would hash the input password and compare with the stored hash
+        return email.equals(savedEmail) && password.equals(savedPassword);
     }
 }

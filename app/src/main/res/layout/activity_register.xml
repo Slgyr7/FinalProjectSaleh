@@ -130,32 +130,22 @@
     </com.google.android.material.card.MaterialCardView>
 
     <!-- Register Button -->
+
+    <!-- Link to Login Screen -->
+
     <Button
         android:id="@+id/btn_create"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="80dp"
         android:padding="16dp"
         android:text="Create Account"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/formCardView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/formCardView"
         app:layout_constraintTop_toBottomOf="@+id/formCardView" />
-
-    <!-- Link to Login Screen -->
-    <TextView
-        android:id="@+id/loginLinkTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="8dp"
-        android:text="Already have an account? Log In"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_create" />
 
     <ImageView
         android:id="@+id/back_btn"
