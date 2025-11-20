@@ -11,12 +11,12 @@ public class site {
 @ColumnInfo
     public int name ;
     public int Category;
-    public int Rating ;
+    public double Rating ;
     public int Opentime;
     public int CloseTime;
     public int Cost;
     public int Image;
-    public int Review;
+
     public int Address;
     public int Phone;
     public int Website;
@@ -31,7 +31,6 @@ public class site {
                 ", CloseTime=" + CloseTime +
                 ", Cost=" + Cost +
                 ", Image=" + Image +
-                ", Review=" + Review +
                 ", Address=" + Address +
                 ", Phone=" + Phone +
                 ", Website=" + Website +
@@ -59,11 +58,11 @@ public class site {
         Category = category;
     }
 
-    public int getRating() {
+    public double getRating() {
         return Rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         Rating = rating;
     }
 
@@ -99,13 +98,6 @@ public class site {
         Image = image;
     }
 
-    public int getReview() {
-        return Review;
-    }
-
-    public void setReview(int review) {
-        Review = review;
-    }
 
     public int getAddress() {
         return Address;

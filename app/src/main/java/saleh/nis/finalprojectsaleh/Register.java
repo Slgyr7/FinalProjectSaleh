@@ -17,13 +17,17 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
     // Declare the views for the buttons and input fields
     private ImageView backButton;
     private Button createAccountButton;
-    private TextInputEditText username, email, password, phone;
+    private TextInputEditText usernameEditText, emailEditText, passwordEditText, phoneEditText;
+    private TextInputLayout usernameLayout, emailLayout, passwordLayout, phoneLayout;
     
     // SharedPreferences for local storage
     private static final String PREF_NAME = "UserData";
@@ -44,11 +48,17 @@ public class Register extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize input fields
-        username = findViewById(R.id.ET_username);
-        email = findViewById(R.id.ET_email);
-        password = findViewById(R.id.ET_password);
-        phone = findViewById(R.id.ET_phone);
+        // Initialize input fields and layouts
+        usernameEditText = findViewById(R.id.ET_username);
+        emailEditText = findViewById(R.id.ET_email);
+        passwordEditText = findViewById(R.id.ET_password);
+        phoneEditText = findViewById(R.id.ET_phone);
+        
+        // Initialize TextInputLayouts
+        usernameLayout = findViewById(R.id.usernameLayout);
+        emailLayout = findViewById(R.id.emailLayout);
+        passwordLayout = findViewById(R.id.passwordLayout);
+        phoneLayout = findViewById(R.id.phoneLayout);
         
         // Back Button Functionality
         backButton = findViewById(R.id.back_btn);
@@ -67,11 +77,17 @@ public class Register extends AppCompatActivity {
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Reset errors
+                usernameLayout.setError(null);
+                emailLayout.setError(null);
+                passwordLayout.setError(null);
+                phoneLayout.setError(null);
+                
                 // Get input values
-                String usernameStr = username.getText().toString().trim();
-                String emailStr = email.getText().toString().trim();
-                String passwordStr = password.getText().toString().trim();
-                String phoneStr = phone.getText().toString().trim();
+                String usernameStr = usernameEditText.getText().toString().trim();
+                String emailStr = emailEditText.getText().toString().trim();
+                String passwordStr = passwordEditText.getText().toString().trim();
+                String phoneStr = phoneEditText.getText().toString().trim();
 
                 // Validate inputs
                 if (validateInputs(usernameStr, emailStr, passwordStr, phoneStr)) {
@@ -93,37 +109,59 @@ public class Register extends AppCompatActivity {
     }
 
     private boolean validateInputs(String username, String email, String password, String phone) {
+        boolean isValid = true;
+        
+        // Reset errors
+        usernameLayout.setError(null);
+        emailLayout.setError(null);
+        passwordLayout.setError(null);
+        phoneLayout.setError(null);
+        
+        // Username validation
         if (TextUtils.isEmpty(username)) {
-            this.username.setError("Username is required");
-            return false;
+            usernameLayout.setError("Username is required");
+            usernameEditText.requestFocus();
+            isValid = false;
+        } else if (username.length() < 3) {
+            usernameLayout.setError("Username must be at least 3 characters");
+            usernameEditText.requestFocus();
+            isValid = false;
         }
 
+        // Email validation
         if (TextUtils.isEmpty(email)) {
-            this.email.setError("Email is required");
-            return false;
+            emailLayout.setError("Email is required");
+            if (isValid) emailEditText.requestFocus();
+            isValid = false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailLayout.setError("Please enter a valid email");
+            if (isValid) emailEditText.requestFocus();
+            isValid = false;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            this.email.setError("Please enter a valid email");
-            return false;
-        }
-
+        // Password validation
         if (TextUtils.isEmpty(password)) {
-            this.password.setError("Password is required");
-            return false;
+            passwordLayout.setError("Password is required");
+            if (isValid) passwordEditText.requestFocus();
+            isValid = false;
+        } else if (password.length() < 6) {
+            passwordLayout.setError("Password must be at least 6 characters");
+            if (isValid) passwordEditText.requestFocus();
+            isValid = false;
         }
 
-        if (password.length() < 6) {
-            this.password.setError("Password must be at least 6 characters");
-            return false;
-        }
-
+        // Phone validation
         if (TextUtils.isEmpty(phone)) {
-            this.phone.setError("Phone number is required");
-            return false;
+            phoneLayout.setError("Phone number is required");
+            if (isValid) phoneEditText.requestFocus();
+            isValid = false;
+        } else if (!Pattern.matches("^[0-9]{10,15}$", phone)) {
+            phoneLayout.setError("Please enter a valid phone number (10-15 digits)");
+            if (isValid) phoneEditText.requestFocus();
+            isValid = false;
         }
 
-        return true;
+        return isValid;
     }
 
     private boolean saveUserData(String username, String email, String password, String phone) {
