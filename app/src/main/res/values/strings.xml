@@ -13,4 +13,8 @@
     <string name="icon_desc_person">Person Icon</string>
     <string name="icon_desc_lock">Lock Icon</string>
     <string name="phone_hint">Phone Number</string>
+<!-- In strings.xml -->
+    <string name="register_prompt">Don\'t have an account? &lt;b>Sign Up&lt;/b></string>
+
+
 </resources>
