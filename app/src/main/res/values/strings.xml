@@ -13,8 +13,23 @@
     <string name="icon_desc_person">Person Icon</string>
     <string name="icon_desc_lock">Lock Icon</string>
     <string name="phone_hint">Phone Number</string>
-<!-- In strings.xml -->
+    <!-- In strings.xml -->
     <string name="register_prompt">Don\'t have an account? &lt;b>Sign Up&lt;/b></string>
+    <!-- Home Screen -->
+    <string name="home_welcome_message">Hello, Saleh!</string>
+    <string name="home_subtitle">Where do you want to go today?</string>
+    <string name="home_user_profile_desc">User Profile</string>
+    <string name="home_search_hint">Search for a destination...</string>
+    <string name="home_card_plan_trip">Plan a Trip</string>
+    <string name="home_card_my_trips">My Trips</string>
+    <string name="home_card_explore">Explore Nearby</string>
+    <string name="home_card_translator">Translator</string>
+    <!-- Trip Item Placeholders -->
+    <string name="trip_item_placeholder_title">Trip to Dubai</string>
+    <string name="trip_item_placeholder_status">Upcoming</string>
+    <string name="trip_item_placeholder_from">New York, USA</string>
+    <string name="trip_item_placeholder_to">Los Angeles, USA</string>
+    <string name="trip_item_placeholder_date">Nov 27, 2025</string>
 
 
 </resources>
