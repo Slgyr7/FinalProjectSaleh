@@ -24,12 +24,20 @@
     <string name="home_card_my_trips">My Trips</string>
     <string name="home_card_explore">Explore Nearby</string>
     <string name="home_card_translator">Translator</string>
+    
+    <!-- Trip Item Layout Strings -->
+    <string name="attraction_image_desc">Image of the attraction</string>
+    <string name="location_icon_desc">Location</string>
+    <string name="sample_attraction_name">Sample Attraction</string>
+    <string name="sample_location">Jerusalem, Israel</string>
+    <string name="sample_category">History</string>
+    <string name="rating_icon_desc">Rating</string>
+    <string name="duration_icon_desc">Duration</string>
+    
     <!-- Trip Item Placeholders -->
     <string name="trip_item_placeholder_title">Trip to Dubai</string>
     <string name="trip_item_placeholder_status">Upcoming</string>
     <string name="trip_item_placeholder_from">New York, USA</string>
     <string name="trip_item_placeholder_to">Los Angeles, USA</string>
     <string name="trip_item_placeholder_date">Nov 27, 2025</string>
-
-
 </resources>

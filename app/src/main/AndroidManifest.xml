@@ -15,6 +15,9 @@
             android:name=".trips"
             android:exported="false" />
         <activity
+            android:name=".site"
+            android:exported="false" />
+        <activity
             android:name=".testscree"
             android:exported="false" />
         <activity

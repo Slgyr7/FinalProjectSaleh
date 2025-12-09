@@ -1,159 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <!-- Main attraction image with rounded corners -->
+        <ImageView
+            android:id="@+id/attractionImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_height="220dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/attraction_image_desc"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CardView.Rounded"
+            tools:src="@drawable/ic_placeholder_image" />
 
-            <ImageView
-                android:id="@+id/ivTripIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_directions"
-                android:tint="?attr/colorPrimary"
-                android:layout_marginEnd="12dp"/>
-
-            <TextView
-                android:id="@+id/tvTripTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Trip Title"/>
-
-            <TextView
-                android:id="@+id/tvTripStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="2dp"
-                android:background="@drawable/status_background"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                android:text="Upcoming"/>
-        </LinearLayout>
-
+        <!-- Gradient overlay -->
         <View
+            android:id="@+id/gradientOverlay"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#EEEEEE"
-            android:layout_marginVertical="4dp"/>
+            android:layout_height="80dp"
+            android:background="@drawable/gradient_overlay"
+            app:layout_constraintBottom_toBottomOf="@id/attractionImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Category chip - moved to top right of image -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/categoryChip"
+            style="@style/Widget.MaterialComponents.Chip.Assist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:checkable="false"
+            android:clickable="false"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="?attr/colorPrimary"
+            app:chipCornerRadius="16dp"
+            app:chipMinHeight="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/sample_category" />
+
+        <!-- Title of the attraction - moved to overlay on image -->
+
+        <!-- Location with icon - moved to overlay on image -->
+
+        <TextView
+            android:id="@+id/titleText"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/attractionImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/sample_attraction_name" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/locationContainer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="From"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray"/>
-
-                <TextView
-                    android:id="@+id/tvStartLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="New York"
-                    android:maxLines="1"
-                    android:ellipsize="end"/>
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/arrow_down_float"
-                android:rotation="90"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="8dp"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray"/>
-
-                <TextView
-                    android:id="@+id/tvEndLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="Los Angeles"
-                    android:maxLines="1"
-                    android:ellipsize="end"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="@id/attractionImage"
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@android:drawable/ic_menu_month"
-                android:tint="?attr/colorPrimary"
-                android:layout_marginEnd="4dp"/>
+                android:src="@drawable/ic_location"
+                android:contentDescription="@string/location_icon_desc"
+                android:tint="@android:color/white" />
 
             <TextView
-                android:id="@+id/tvTripDate"
+                android:id="@+id/locationText"
+                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="@android:color/white"
                 android:textSize="12sp"
-                android:text="Nov 27, 2025"
-                android:textColor="@android:color/darker_gray"/>
+                tools:text="@string/sample_location" />
+        </LinearLayout>
+
+        <!-- Bottom content area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@id/attractionImage">
+
+            <!-- Rating bar with text -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_star"
+                    android:tint="?attr/colorPrimary"
+                    android:contentDescription="@string/rating_icon_desc" />
+
+                <TextView
+                    android:id="@+id/ratingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="4.8" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="•"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:layout_marginHorizontal="8dp" />
+            </LinearLayout>
+
+            <!-- Duration -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_clock"
+                    android:tint="?attr/colorOnSurfaceVariant"
+                    android:contentDescription="@string/duration_icon_desc" />
+
+                <TextView
+                    android:id="@+id/durationText"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="2h 30m" />
+            </LinearLayout>
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
+            <!-- Price -->
             <TextView
-                android:id="@+id/tvTripTime"
+                android:id="@+id/priceText"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="10:00 AM"
-                android:textColor="@android:color/darker_gray"/>
+                android:background="@drawable/price_background"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="?attr/colorPrimary"
+                tools:text="₪120" />
         </LinearLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
