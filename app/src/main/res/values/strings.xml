@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">FinalProjectSaleh</string>
+    
+    <!-- Trip Item Layout -->
+    <string name="trip_title">Mountain Adventure</string>
+    <string name="trip_rating">4.8</string>
+    <string name="trip_location">Swiss Alps, Switzerland</string>
+    <string name="trip_date">15-20 Jun</string>
+    <string name="trip_duration">5 days</string>
+    <string name="trip_price">$1,250</string>
+    <string name="trip_category">Adventure</string>
+    <string name="save_trip">Save trip</string>
+    <string name="view_details">View Details</string>
+    <string name="book_now">Book Now</string>
     <!-- Add these lines to your strings.xml -->
     <string name="register_header">Start Your Adventure</string>
     <string name="email_hint">Email</string>

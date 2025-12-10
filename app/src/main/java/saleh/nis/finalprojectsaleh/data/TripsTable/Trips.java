@@ -8,7 +8,6 @@ public class Trips {
     @PrimaryKey(autoGenerate = true)
     public long keyid;
     @ColumnInfo
-    public image image;
     public String name ;
     public String Category;
     public double Rating ;
