@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import saleh.nis.finalprojectsaleh.R;
 
@@ -39,7 +40,7 @@ ImageView imageview = vitem.findViewById(R.id.iv_trip_attraction);
         TextView address = vitem.findViewById(R.id.tv_address);
         TextView price = vitem.findViewById(R.id.tv_price);
         TextView duration = vitem.findViewById(R.id.tv_duration);
-        TextView date = vitem.findViewById(R.id.tv_date);
+        ChipGroup chipGroup = vitem.findViewById(R.id.cg_vibes);
         Chip chip = vitem.findViewById(R.id.chip_category);
 Trips current=getItem(position);
 title.setText(current.getTitle());
@@ -48,7 +49,6 @@ rating.setText(String.valueOf(current.getRating()));
 address.setText(current.getAddress());
 price.setText(String.valueOf(current.getPrice()));
 duration.setText(current.getDuration());
-date.setText(current.getDate());
 chip.setText(current.getCategory());
         return vitem;
     }

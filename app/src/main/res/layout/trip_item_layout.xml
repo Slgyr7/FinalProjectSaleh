@@ -160,6 +160,7 @@
 
                 <!-- "Vibe" Chips on the right side -->
                 <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cg_vibes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
