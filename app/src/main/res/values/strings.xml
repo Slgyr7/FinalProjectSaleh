@@ -52,4 +52,7 @@
     <string name="trip_item_placeholder_from">New York, USA</string>
     <string name="trip_item_placeholder_to">Los Angeles, USA</string>
     <string name="trip_item_placeholder_date">Nov 27, 2025</string>
+    
+    <!-- Button Text -->
+    <string name="view_button_text">View</string>
 </resources>

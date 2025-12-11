@@ -10,10 +10,10 @@ import java.util.List;
 
 @Dao
 public interface TripsQuery {
-    @Query("SELECT * FROM Trips ORDER BY name DESC")
+    @Query("SELECT * FROM Trips ORDER BY title DESC")
     List<Trips> getAllTrips();
 
-    @Query("SELECT * FROM Trips WHERE name = :name")
+    @Query("SELECT * FROM Trips WHERE title = :name")
     List<Trips> getTripsByName(String name);
 
     @Query("SELECT * FROM Trips WHERE Category = :category")
@@ -46,8 +46,7 @@ public interface TripsQuery {
     void deleteTripById(long tripId);
     @Query("SELECT * FROM Trips WHERE Price >= :minPrice")
     List<Trips> getTripsByMinPrice(double minPrice);
-    @Query("SELECT * FROM Trips WHERE distance <= :maxDistance")
-    List<Trips> getTripsByMaxDistance(double maxDistance);
+
     @Query("SELECT * FROM Trips WHERE Address = :address")
     List<Trips> getTripsByAddress(String address);
     @Insert
