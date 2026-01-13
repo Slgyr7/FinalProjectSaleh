@@ -107,7 +107,7 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-
+//njk''hg\j/k
     private boolean validateInputs(String username, String email, String password, String phone) {
         boolean isValid = true;
         

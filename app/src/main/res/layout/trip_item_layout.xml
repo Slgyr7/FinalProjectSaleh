@@ -127,68 +127,30 @@
                     tools:text="@string/trip_location" />
             </LinearLayout>
 
-            <!-- START: NEW SECTION REPLACING DATE -->
-            <!-- Details: Duration and Vibe Chips -->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Vibe Chips -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_vibes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                app:chipSpacingHorizontal="4dp"
+                app:singleLine="true">
 
-                <!-- Duration -->
-                <ImageView
-                    android:id="@+id/duration_icon"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:contentDescription="@string/duration_icon_desc"
-                    android:src="@drawable/ic_clock"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="?attr/colorOnSurfaceVariant" />
-
-                <TextView
-                    android:id="@+id/tv_duration"
-                    style="@style/TextAppearance.MaterialComponents.Caption"
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Suggestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/duration_icon"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="3h 30m" />
+                    app:chipMinHeight="24dp"
+                    tools:text="Outdoors" />
 
-                <!-- "Vibe" Chips on the right side -->
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/cg_vibes"
-                    android:layout_width="0dp"
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    app:chipSpacingHorizontal="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_duration"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:singleLine="true">
+                    app:chipMinHeight="24dp"
+                    tools:text="Historic" />
 
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.Material3.Chip.Suggestion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:chipMinHeight="24dp"
-                        tools:text="Outdoors" />
-
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.Material3.Chip.Suggestion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:chipMinHeight="24dp"
-                        tools:text="Historic" />
-
-                </com.google.android.material.chip.ChipGroup>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <!-- END: NEW SECTION -->
+            </com.google.android.material.chip.ChipGroup>
 
             <!-- Price and Action -->
 

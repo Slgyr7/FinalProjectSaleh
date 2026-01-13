@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">FinalProjectSaleh</string>
-    
+
     <!-- Trip Item Layout -->
     <string name="trip_title">Mountain Adventure</string>
     <string name="trip_rating">4.8</string>
@@ -36,7 +36,7 @@
     <string name="home_card_my_trips">My Trips</string>
     <string name="home_card_explore">Explore Nearby</string>
     <string name="home_card_translator">Translator</string>
-    
+
     <!-- Trip Item Layout Strings -->
     <string name="attraction_image_desc">Image of the attraction</string>
     <string name="location_icon_desc">Location</string>
@@ -45,14 +45,52 @@
     <string name="sample_category">History</string>
     <string name="rating_icon_desc">Rating</string>
     <string name="duration_icon_desc">Duration</string>
-    
+
     <!-- Trip Item Placeholders -->
     <string name="trip_item_placeholder_title">Trip to Dubai</string>
+
+    <!-- Add Trip Form -->
+    <string name="add_trip_details">Add Trip Details</string>
+    <string name="title">Title</string>
+    <string name="category">Category</string>
+    <string name="status">Status</string>
+    <string name="rating">Rating (0-5)</string>
+    <string name="price">Price (USD)</string>
+    <string name="address">Address</string>
+    <string name="duration">Duration (e.g., 3 days 2 nights)</string>
+    <string name="image_url">Image URL</string>
+    <string name="add_trip">Add Trip</string>
+    <string name="trip_added">Trip added successfully!</string>
+    <string name="fill_all_fields">Please fill in all fields</string>
+    <string name="invalid_rating">Rating must be between 0 and 5</string>
+    <string name="invalid_price">Please enter a valid price</string>
+    <string name="invalid_url">Please enter a valid URL</string>
+    
+    <!-- Status Options -->
+    <string-array name="status_options">
+        <item>Open</item>
+        <item>Upcoming</item>
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>Cancelled</item>
+    </string-array>
+    
+    <!-- Category Options -->
+    <string-array name="category_options">
+        <item>Adventure</item>
+        <item>Beach</item>
+        <item>City Break</item>
+        <item>Cultural</item>
+        <item>Hiking</item>
+        <item>Road Trip</item>
+        <item>Skiing</item>
+        <item>Wildlife</item>
+    </string-array>
     <string name="trip_item_placeholder_status">Upcoming</string>
     <string name="trip_item_placeholder_from">New York, USA</string>
     <string name="trip_item_placeholder_to">Los Angeles, USA</string>
     <string name="trip_item_placeholder_date">Nov 27, 2025</string>
-    
+
     <!-- Button Text -->
     <string name="view_button_text">View</string>
 </resources>
