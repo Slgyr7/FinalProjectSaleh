@@ -1,230 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurfaceContainer">
+    android:background="@color/white"
+    android:fillViewport="true">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="@string/add_trip"
-            app:titleTextColor="?android:attr/textColorPrimary"
-            style="@style/Widget.Material3.Toolbar.Surface" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="88dp"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <LinearLayout
+        <!-- Header -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="24dp">
+            android:layout_marginBottom="24dp"
+            android:text="Add New Trip"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            <!-- Header -->
-            <com.google.android.material.card.MaterialCardView
+        <!-- Image Upload -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/imageCardView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivTripImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:contentDescription="@string/trip_image_desc"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_add_photo"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/upload_image"
+                    android:textColor="?attr/colorPrimary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Title Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:startIconDrawable="@drawable/ic_title"
+            app:startIconTint="?attr/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="?attr/colorPrimaryContainer"
-                app:cardElevation="0dp"
-                app:shapeAppearance="@style/ShapeAppearance.Material3.MediumComponent">
+                android:hint="@string/title"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColorHint="@android:color/darker_gray" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+        <!-- Location Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:startIconDrawable="@drawable/ic_location"
+            app:startIconTint="?attr/colorPrimary">
 
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_travel"
-                        app:tint="?attr/colorOnPrimaryContainer" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center"
-                        android:text="@string/add_trip_details"
-                        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                        android:textColor="?attr/colorOnPrimaryContainer" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Form Fields -->
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAdress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="1dp"
-                app:shapeAppearance="@style/ShapeAppearance.Material3.MediumComponent">
+                android:hint="@string/location"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColorHint="@android:color/darker_gray" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+        <!-- Category Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/select_category"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-                    <!-- Title -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/titleLayout"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:hint="@string/title"
-                        app:startIconDrawable="@drawable/ic_title"
-                        app:startIconTint="?attr/colorPrimary">
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/categoryChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:singleLine="true"
+            app:singleSelection="true">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textCapWords"
-                            android:maxLines="1"
-                            tools:text="Trip to Paris" />
-                    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/adventure"
+                app:chipBackgroundColor="@color/category_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:checkedIcon="@null" />
 
-                    <!-- Category -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/categoryLayout"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:hint="@string/category"
-                        app:startIconDrawable="@drawable/ic_category"
-                        app:startIconTint="?attr/colorPrimary">
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/culture"
+                app:chipBackgroundColor="@color/category_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:checkedIcon="@null" />
 
-                        <AutoCompleteTextView
-                            android:id="@+id/et_category"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="none"
-                            android:completionThreshold="1"
-                            tools:text="Adventure" />
-                    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/nature"
+                app:chipBackgroundColor="@color/category_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:checkedIcon="@null" />
+        </com.google.android.material.chip.ChipGroup>
 
-                    <!-- Rating -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/ratingLayout"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:hint="@string/rating"
-                        app:startIconDrawable="@drawable/ic_star"
-                        app:startIconTint="?attr/colorPrimary">
+        <!-- Price Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:prefixText="₪"
+            app:prefixTextColor="?attr/colorPrimary"
+            app:startIconDrawable="@drawable/ic_attach_money"
+            app:startIconTint="?attr/colorPrimary">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_rating"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
-                            android:maxLength="3"
-                            tools:text="4.5" />
-                    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/price"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColorHint="?android:attr/textColorSecondary" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Price -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/priceLayout"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:hint="@string/price"
-                        app:startIconDrawable="@drawable/ic_attach_money"
-                        app:startIconTint="?attr/colorPrimary">
+        <!-- Rating Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ratingInputLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/rating_label"
+            app:startIconDrawable="@drawable/ic_star_filled"
+            app:startIconTint="@color/rating_progress"
+            app:endIconMode="clear_text"
+            app:endIconDrawable="@drawable/ic_clear"
+            app:endIconTint="?attr/colorOnSurface"
+            app:endIconContentDescription="@string/clear_rating"
+            app:helperText="@string/rating_hint_desc"
+            app:helperTextTextColor="?android:attr/textColorSecondary"
+            app:errorEnabled="true">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
-                            tools:text="199.99" />
-                    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:hint="@string/rating_hint"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLength="3"
+                android:maxLines="1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textColorHint="?android:attr/textColorSecondary"
+                android:textSize="16sp"
+                tools:text="4.5" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Address -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/addressLayout"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:hint="@string/address"
-                        app:startIconDrawable="@drawable/ic_location"
-                        app:startIconTint="?attr/colorPrimary">
+        <!-- Vibe Tags -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/select_vibes"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPostalAddress"
-                            tools:text="123 Main St, City, Country" />
-                    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/vibesChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:selectionRequired="false">
 
-                    <!-- Image URL -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/imageUrlLayout"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/image_url"
-                        app:startIconDrawable="@drawable/ic_image"
-                        app:startIconTint="?attr/colorPrimary">
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/outdoors"
+                app:chipBackgroundColor="@color/vibe_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:checkedIcon="@drawable/ic_check"
+                app:closeIcon="@null"
+                app:closeIconTint="?attr/colorPrimary" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_image_url"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textUri"
-                            tools:text="https://example.com/image.jpg" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/historic"
+                app:chipBackgroundColor="@color/vibe_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:checkedIcon="@drawable/ic_check"
+                app:closeIcon="@null"
+                app:closeIconTint="?attr/colorPrimary" />
 
-    <!-- Submit Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_submit"
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="16dp"
-        android:paddingVertical="14dp"
-        android:text="@string/add_trip"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:cornerRadius="12dp"
-        app:icon="@drawable/ic_add"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@android:color/white"
-        app:layout_anchor="@id/btn_submit"
-        app:layout_anchorGravity="bottom|center_horizontal"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scenic"
+                app:chipBackgroundColor="@color/vibe_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:checkedIcon="@drawable/ic_check"
+                app:closeIcon="@null"
+                app:closeIconTint="?attr/colorPrimary" />
+        </com.google.android.material.chip.ChipGroup>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <!-- Submit Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/purple_500"
+            android:paddingVertical="12dp"
+            android:text="@string/add_trip"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:cornerRadius="8dp"
+            app:icon="@drawable/ic_add"
+            app:iconGravity="start"
+            app:iconTint="@android:color/white" />
+
+    </LinearLayout>
+</ScrollView>

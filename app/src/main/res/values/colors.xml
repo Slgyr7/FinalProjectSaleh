@@ -16,6 +16,11 @@
     <color name="md_theme_onSurfaceVariant">#42474E</color>
  <!-- For subtitles and hints -->
 
+    <!-- Rating Bar Colors -->
+    <color name="rating_progress">#FFC107</color>  <!-- Amber 500 -->
+    <color name="rating_track">#E0E0E0</color>    <!-- Grey 300 -->
+    <color name="rating_text">#757575</color>      <!-- Grey 600 -->
+    
     <!-- You can add your black and white here too -->
     <!-- <color name="black">#000000</color> -->
 

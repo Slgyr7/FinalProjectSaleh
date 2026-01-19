@@ -3,19 +3,23 @@ package saleh.nis.finalprojectsaleh.data.TripsTable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.android.material.chip.Chip;
+import com.google.android.material.imageview.ShapeableImageView;
+
 @Entity
 public class Trips {
     @PrimaryKey(autoGenerate = true)
     public long keyid;
     @ColumnInfo
     public String title;
-    public String Category;
+    public Chip Category;
     public double Rating ;
     public double Price;
    public String Status;
-    public String Address;
-    public String attractionimage;
-    public String duration;  // e.g., "2 hours", "1 day", "3 hours 30 min"
+    //public String Address;
+    public ShapeableImageView attractionimage;
+    public String vibes;  // e.g., "Adventure", "Relaxing", "Cultural"
 
     @Override
     public String toString() {
@@ -27,7 +31,7 @@ public class Trips {
                 ", Price=" + Price +
                 ", Status='" + Status + '\'' +
                 ", Address=" + Address +
-                ", Duration='" + duration + '\'' +
+                ", Vibes='" + vibes + '\'' +
                 ", attractionimage='" + attractionimage + '\'' +
                 '}';
     }
@@ -83,11 +87,11 @@ public class Trips {
         this.attractionimage = attractionimage;
     }
 
-    public String getDuration() {
-        return duration;
+    public String getVibes() {
+        return vibes;
     }
 
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public void setVibes(String vibes) {
+        this.vibes = vibes;
     }
 }
