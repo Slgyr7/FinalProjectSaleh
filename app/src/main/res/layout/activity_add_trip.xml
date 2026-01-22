@@ -8,6 +8,7 @@
     android:fillViewport="true">
 
     <LinearLayout
+        android:id="@+id/linlayaddtrip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -59,6 +60,7 @@
 
         <!-- Title Input -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/title_lyot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -77,6 +79,7 @@
 
         <!-- Location Input -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/location_lyot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -117,10 +120,10 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:text="@string/adventure"
+                app:checkedIcon="@null"
                 app:chipBackgroundColor="@color/category_chip_selector"
                 app:chipStrokeColor="?attr/colorPrimary"
-                app:chipStrokeWidth="1dp"
-                app:checkedIcon="@null" />
+                app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.Material3.Chip.Filter"
@@ -128,10 +131,10 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:text="@string/culture"
+                app:checkedIcon="@null"
                 app:chipBackgroundColor="@color/category_chip_selector"
                 app:chipStrokeColor="?attr/colorPrimary"
-                app:chipStrokeWidth="1dp"
-                app:checkedIcon="@null" />
+                app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.Material3.Chip.Filter"
@@ -139,14 +142,15 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:text="@string/nature"
+                app:checkedIcon="@null"
                 app:chipBackgroundColor="@color/category_chip_selector"
                 app:chipStrokeColor="?attr/colorPrimary"
-                app:chipStrokeWidth="1dp"
-                app:checkedIcon="@null" />
+                app:chipStrokeWidth="1dp" />
         </com.google.android.material.chip.ChipGroup>
 
         <!-- Price Input -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/price_lyot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -167,21 +171,21 @@
 
         <!-- Rating Input -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ratingInputLayout"
+            android:id="@+id/rating_lyot"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:hint="@string/rating_label"
-            app:startIconDrawable="@drawable/ic_star_filled"
-            app:startIconTint="@color/rating_progress"
-            app:endIconMode="clear_text"
-            app:endIconDrawable="@drawable/ic_clear"
-            app:endIconTint="?attr/colorOnSurface"
             app:endIconContentDescription="@string/clear_rating"
+            app:endIconDrawable="@drawable/ic_clear"
+            app:endIconMode="clear_text"
+            app:endIconTint="?attr/colorOnSurface"
+            app:errorEnabled="true"
             app:helperText="@string/rating_hint_desc"
             app:helperTextTextColor="?android:attr/textColorSecondary"
-            app:errorEnabled="true">
+            app:startIconDrawable="@drawable/ic_star_filled"
+            app:startIconTint="@color/rating_progress">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etRating"
@@ -221,10 +225,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/outdoors"
+                app:checkedIcon="@drawable/ic_check"
                 app:chipBackgroundColor="@color/vibe_chip_selector"
                 app:chipStrokeColor="?attr/colorPrimary"
                 app:chipStrokeWidth="1dp"
-                app:checkedIcon="@drawable/ic_check"
                 app:closeIcon="@null"
                 app:closeIconTint="?attr/colorPrimary" />
 
@@ -233,10 +237,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/historic"
+                app:checkedIcon="@drawable/ic_check"
                 app:chipBackgroundColor="@color/vibe_chip_selector"
                 app:chipStrokeColor="?attr/colorPrimary"
                 app:chipStrokeWidth="1dp"
-                app:checkedIcon="@drawable/ic_check"
                 app:closeIcon="@null"
                 app:closeIconTint="?attr/colorPrimary" />
 
@@ -245,10 +249,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/scenic"
+                app:checkedIcon="@drawable/ic_check"
                 app:chipBackgroundColor="@color/vibe_chip_selector"
                 app:chipStrokeColor="?attr/colorPrimary"
                 app:chipStrokeWidth="1dp"
-                app:checkedIcon="@drawable/ic_check"
                 app:closeIcon="@null"
                 app:closeIconTint="?attr/colorPrimary" />
         </com.google.android.material.chip.ChipGroup>

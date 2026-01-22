@@ -95,7 +95,7 @@ public class Register extends AppCompatActivity {
                     if (saveUserData(usernameStr, emailStr, passwordStr, phoneStr)) {
                         // Registration successful
                         Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                        
+
                         // Navigate to HomeScreen
                         Intent intent = new Intent(Register.this, HomeScreen.class);
                         startActivity(intent);
@@ -184,5 +184,5 @@ public class Register extends AppCompatActivity {
             return false;
         }
     }
-    }
+}
 

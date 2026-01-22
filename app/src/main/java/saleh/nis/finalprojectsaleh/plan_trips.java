@@ -19,14 +19,14 @@ import saleh.nis.finalprojectsaleh.data.AppDataBase;
 import saleh.nis.finalprojectsaleh.data.TripsTable.Trips;
 import saleh.nis.finalprojectsaleh.data.TripsTable.TripsAdapter;
 
-public class trips extends AppCompatActivity {
+public class plan_trips extends AppCompatActivity {
     private ListView lstTrips;
     private TripsAdapter tripsadapterad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_trips);
+        setContentView(R.layout.activity_plan_trips);
         lstTrips = findViewById(R.id.lv_trips);
         tripsadapterad = new TripsAdapter(this, R.layout.trip_item_layout);
         lstTrips.setAdapter(tripsadapterad);

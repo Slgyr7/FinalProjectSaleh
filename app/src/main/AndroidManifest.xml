@@ -15,7 +15,7 @@
             android:name=".AddTripActivity"
             android:exported="false" />
         <activity
-            android:name=".trips"
+            android:name=".plan_trips"
             android:exported="false" />
         <activity
             android:name=".site"
