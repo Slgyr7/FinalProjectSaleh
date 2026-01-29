@@ -39,17 +39,16 @@ ImageView imageview = vitem.findViewById(R.id.iv_trip_attraction);
         TextView rating = vitem.findViewById(R.id.tv_rating);
         TextView address = vitem.findViewById(R.id.tv_address);
         TextView price = vitem.findViewById(R.id.tv_price);
-        TextView vibes = vitem.findViewById(R.id.tv_duration);  // Reusing the same view ID, consider renaming in layout if needed
-        ChipGroup chipGroup = vitem.findViewById(R.id.cg_vibes);
-        Chip chip = vitem.findViewById(R.id.chip_category);
+        // Reusing the same view ID, consider renaming in layout if needed
+        ChipGroup vibes = vitem.findViewById(R.id.cg_vibes);
+        Chip Category = vitem.findViewById(R.id.chip_category);
 Trips current=getItem(position);
 title.setText(current.getTitle());
 status.setText(current.getStatus());
 rating.setText(String.valueOf(current.getRating()));
 address.setText(current.getAddress());
 price.setText(String.valueOf(current.getPrice()));
-vibes.setText(current.getVibes());
-chip.setText(current.getCategory());
+
         return vitem;
     }
 }

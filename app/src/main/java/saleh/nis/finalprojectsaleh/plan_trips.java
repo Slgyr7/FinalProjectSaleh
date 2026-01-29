@@ -37,7 +37,7 @@ public class plan_trips extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Navigate to AddTripActivity
-                Intent intent = new Intent(trips.this, AddTripActivity.class);
+                Intent intent = new Intent(plan_trips.this, AddTripActivity.class);
                 startActivity(intent);
             }
         });

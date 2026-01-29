@@ -2,10 +2,15 @@ package saleh.nis.finalprojectsaleh.data.TripsTable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.imageview.ShapeableImageView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class Trips {
@@ -16,10 +21,16 @@ public class Trips {
     public Chip Category;
     public double Rating ;
     public double Price;
+    public String Address;
    public String Status;
     //public String Address;
     public ShapeableImageView attractionimage;
-    public String vibes;  // e.g., "Adventure", "Relaxing", "Cultural"
+    @Ignore
+    private List<String> vibesList = new ArrayList<>();
+    
+    // For Room database compatibility
+    @ColumnInfo(name = "vibes")
+    private String vibesString;  // Stores comma-separated vibes for database
 
     @Override
     public String toString() {
@@ -30,8 +41,8 @@ public class Trips {
                 ", Rating=" + Rating +
                 ", Price=" + Price +
                 ", Status='" + Status + '\'' +
-                ", Address=" + Address +
-                ", Vibes='" + vibes + '\'' +
+                ", Addres='" + Address+ '\''+
+                ", Vibes='" + vibesList + '\'' +
                 ", attractionimage='" + attractionimage + '\'' +
                 '}';
     }
@@ -47,10 +58,10 @@ public class Trips {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getCategory() {
+    public Chip getCategory() {
         return Category;
     }
-    public void setCategory(String category) {
+    public void setCategory(Chip category) {
         Category = category;
     }
     public double getRating() {
@@ -79,19 +90,75 @@ public class Trips {
         Address = address;
     }
 
-    public String getAttractionimage() {
+    public ShapeableImageView getAttractionimage() {
         return attractionimage;
     }
 
-    public void setAttractionimage(String attractionimage) {
+    public void setAttractionimage(ShapeableImageView attractionimage) {
         this.attractionimage = attractionimage;
     }
 
-    public String getVibes() {
-        return vibes;
+    // Get vibes as List
+    public List<String> getVibes() {
+        if ((vibesList == null || vibesList.isEmpty()) && vibesString != null) {
+            // If list is empty but string is not, parse the string
+            vibesList = new ArrayList<>(Arrays.asList(vibesString.split("\\s*,\\s*")));
+        }
+        return vibesList;
     }
 
+    // Set vibes from List
+    public void setVibes(List<String> vibes) {
+        this.vibesList = vibes;
+        updateVibesString();
+    }
+    
+    // Set vibes from comma-separated string
     public void setVibes(String vibes) {
-        this.vibes = vibes;
+        if (vibes != null && !vibes.isEmpty()) {
+            this.vibesList = new ArrayList<>(Arrays.asList(vibes.split("\\s*,\\s*")));
+            this.vibesString = vibes;
+        }
+    }
+    
+    // Get vibes as comma-separated string (for database)
+    public String getVibesString() {
+        if (vibesString == null && vibesList != null) {
+            updateVibesString();
+        }
+        return vibesString;
+    }
+    
+    // Update the string representation from the list
+    private void updateVibesString() {
+        if (vibesList != null && !vibesList.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (String vibe : vibesList) {
+                if (sb.length() > 0) sb.append(",");
+                sb.append(vibe.trim());
+            }
+            vibesString = sb.toString();
+        } else {
+            vibesString = "";
+        }
+    }
+    
+    // Add a single vibe
+    public void addVibe(String vibe) {
+        if (vibesList == null) {
+            vibesList = new ArrayList<>();
+        }
+        if (!vibesList.contains(vibe)) {
+            vibesList.add(vibe);
+            updateVibesString();
+        }
+    }
+    
+    // Remove a vibe
+    public void removeVibe(String vibe) {
+        if (vibesList != null) {
+            vibesList.remove(vibe);
+            updateVibesString();
+        }
     }
 }
