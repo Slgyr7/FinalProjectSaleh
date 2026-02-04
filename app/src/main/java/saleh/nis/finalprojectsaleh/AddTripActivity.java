@@ -17,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -33,6 +34,8 @@ public class AddTripActivity extends AppCompatActivity {
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_PRICE = "price";
     private static final String KEY_RATING = "rating";
+    private static final String KEY_CATEGORY = "category";
+    private static final String KEY_VIBE = "vibe";
 
 
     @Override
@@ -64,7 +67,8 @@ public class AddTripActivity extends AppCompatActivity {
         rating_lyot = findViewById(R.id.rating_lyot);
 
         btnSubmit = findViewById(R.id.btnSubmit);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener()
+                                     {
             @Override
             public void onClick(View v) {
                 // Reset errors
@@ -81,8 +85,18 @@ public class AddTripActivity extends AppCompatActivity {
 
                 // Validate inputs
                 if (validat(titleStr, addressStr, priceStr, ratingStr)) {
+                    // --- Get Chip Text ---
+                    int categoryId = categoryChipGroup.getCheckedChipId();
+                    Chip selectedCategoryChip = findViewById(categoryId);
+                    String categoryStr = selectedCategoryChip.getText().toString();
+
+                    int vibeId = vibesChipGroup.getCheckedChipId();
+                    Chip selectedVibeChip = findViewById(vibeId);
+                    String vibeStr = selectedVibeChip.getText().toString();
+
+
                     // Save trip to database
-                   if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr)) {
+                   if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
                        //Trip add successfull
                        Toast.makeText(AddTripActivity.this, "Trip added successfully", Toast.LENGTH_SHORT).show();
                        //Go to plan trips
@@ -132,6 +146,22 @@ public class AddTripActivity extends AppCompatActivity {
             etPrice.requestFocus();
             isValid = false;
         }
+        // Inside your validat() method, add this logic:
+
+// --- Chip Group Validation ---
+        int checkedCategoryId = categoryChipGroup.getCheckedChipId();
+        if (checkedCategoryId == View.NO_ID) { // NO_ID means no chip is selected
+            // You don't have a TextView for this error, so we'll use a Toast
+            Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+        int checkedVibeId = vibesChipGroup.getCheckedChipId();
+        if (checkedVibeId == View.NO_ID) {
+            Toast.makeText(this, "Please select a vibe", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
         //rating validation
         if (rating.isEmpty()) {
             rating_lyot.setError("Rating is required");
@@ -160,17 +190,19 @@ public class AddTripActivity extends AppCompatActivity {
     }
 
 
-    private boolean saveTripToDatabase(String title, String address, String price, String rating) {
+    // Update the method signature and body
+    private boolean saveTripToDatabase(String title, String address, String price, String rating, String category, String vibe) {
         try {
-            //Get SaredPreferences editor
             SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            //Stor trip data
+            // Store all data
             editor.putString(KEY_TITLE, title);
             editor.putString(KEY_ADDRESS, address);
             editor.putString(KEY_PRICE, price);
             editor.putString(KEY_RATING, rating);
+            editor.putString(KEY_CATEGORY, category); // Save category
+            editor.putString(KEY_VIBE, vibe);
 
             //Apply changes
             editor.apply();

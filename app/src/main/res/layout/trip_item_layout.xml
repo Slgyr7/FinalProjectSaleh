@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<?xml version="1.0" encoding="utf-8"?><com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,100 +6,87 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="1dp"
-    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp"
     android:foreground="?android:attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="12dp">
 
-        <!-- Left Column: Image -->
-
-        <!-- Category Badge -->
-
-
-        <!-- Right Column: Content -->
-
+        <!-- Image on the left -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_trip_attraction"
-            android:layout_width="73dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="8dp"
-            android:contentDescription="@string/attraction_image_desc"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.753"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CardView.Rounded"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
             tools:src="@drawable/ic_placeholder_image" />
 
+        <!-- Vertical layout for all text content -->
         <LinearLayout
             android:id="@+id/content_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:orientation="vertical"
-            android:paddingVertical="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_trip_attraction"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- Title, Status and Rating -->
+            <!-- Category and Status -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="0dp"
+                <!-- **FIX 1: CATEGORY CHIP MOVED HERE** -->
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_category"
+                    style="@style/Widget.Material3.Chip.Assist"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textSize="16sp"
+                    app:chipMinHeight="24dp"
+                    app:chipCornerRadius="8dp"
                     android:textStyle="bold"
-                    tools:text="@string/trip_title" />
+                    tools:text="Restaurant" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:background="@drawable/status_background"
                     android:paddingHorizontal="6dp"
                     android:paddingVertical="2dp"
-                    android:textAllCaps="true"
-                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="10sp"
                     android:textStyle="bold"
-                    app:backgroundTint="?attr/colorPrimary"
                     tools:text="OPEN" />
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="8dp"
-                    android:contentDescription="@string/rating_icon_desc"
-                    android:src="@drawable/ic_star"
-                    app:tint="?attr/colorPrimary" />
-
-                <TextView
-                    android:id="@+id/tv_rating"
-                    style="@style/TextAppearance.MaterialComponents.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="@string/trip_rating" />
             </LinearLayout>
 
-            <!-- Location -->
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                tools:text="Jaffa Port Food Market" />
+
+            <!-- Address and Rating -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,90 +97,45 @@
                 <ImageView
                     android:layout_width="14dp"
                     android:layout_height="14dp"
-                    android:contentDescription="@string/location_icon_desc"
                     android:src="@drawable/ic_location"
-                    app:tint="?attr/colorOnSurfaceVariant" />
+                    app:tint="?attr/colorOnSurfaceVariant"/>
 
                 <TextView
                     android:id="@+id/tv_address"
-                    style="@style/TextAppearance.MaterialComponents.Caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="@string/trip_location" />
+                    android:textSize="12sp"
+                    tools:text="Jaffa, Tel Aviv" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_star"
+                    app:tint="@color/yellow_star" /> <!-- A dedicated color for stars is better -->
+
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:textSize="12sp"
+                    tools:text="4.8" />
             </LinearLayout>
 
-            <!-- Vibe Chips -->
+
+            <!-- **FIX 2: VIBES CHIPGROUP IS NOW EMPTY** -->
+            <!-- We will add chips here from the code -->
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/cg_vibes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:chipSpacingHorizontal="4dp"
-                app:singleLine="true">
+                app:chipSpacingHorizontal="6dp"
+                app:singleLine="true"/>
 
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:chipMinHeight="24dp"
-                    tools:text="Outdoors" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Suggestion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:chipMinHeight="24dp"
-                    tools:text="Historic" />
-
-            </com.google.android.material.chip.ChipGroup>
-
-            <!-- Price and Action -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_price"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="?attr/colorPrimary"
-                    android:textStyle="bold"
-                    tools:text="₪120" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/book_btn"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:text="@string/view_button_text"
-                    app:cornerRadius="18dp" />
-            </LinearLayout>
         </LinearLayout>
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_category"
-            style="@style/Widget.Material3.Chip.Assist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            app:chipBackgroundColor="?attr/colorPrimaryContainer"
-            app:chipCornerRadius="12dp"
-            app:chipMinHeight="20dp"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="-3dp"
-            tools:text="Adventure" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

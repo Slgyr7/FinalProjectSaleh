@@ -26,8 +26,8 @@ public class Trips {
     //public String Address;
     public ShapeableImageView attractionimage;
     @Ignore
-    private List<String> vibesList = new ArrayList<>();
-    
+    private List<String> vibes = new ArrayList<>();
+
     // For Room database compatibility
     @ColumnInfo(name = "vibes")
     private String vibesString;  // Stores comma-separated vibes for database
@@ -42,7 +42,7 @@ public class Trips {
                 ", Price=" + Price +
                 ", Status='" + Status + '\'' +
                 ", Addres='" + Address+ '\''+
-                ", Vibes='" + vibesList + '\'' +
+                ", Vibes='" + vibes + '\'' +
                 ", attractionimage='" + attractionimage + '\'' +
                 '}';
     }
@@ -100,40 +100,40 @@ public class Trips {
 
     // Get vibes as List
     public List<String> getVibes() {
-        if ((vibesList == null || vibesList.isEmpty()) && vibesString != null) {
+        if ((vibes == null || vibes.isEmpty()) && vibesString != null) {
             // If list is empty but string is not, parse the string
-            vibesList = new ArrayList<>(Arrays.asList(vibesString.split("\\s*,\\s*")));
+            vibes = new ArrayList<>(Arrays.asList(vibesString.split("\\s*,\\s*")));
         }
-        return vibesList;
+        return vibes;
     }
 
     // Set vibes from List
     public void setVibes(List<String> vibes) {
-        this.vibesList = vibes;
+        this.vibes = vibes;
         updateVibesString();
     }
-    
+
     // Set vibes from comma-separated string
     public void setVibes(String vibes) {
         if (vibes != null && !vibes.isEmpty()) {
-            this.vibesList = new ArrayList<>(Arrays.asList(vibes.split("\\s*,\\s*")));
+            this.vibes = new ArrayList<>(Arrays.asList(vibes.split("\\s*,\\s*")));
             this.vibesString = vibes;
         }
     }
-    
+
     // Get vibes as comma-separated string (for database)
     public String getVibesString() {
-        if (vibesString == null && vibesList != null) {
+        if (vibesString == null && vibes != null) {
             updateVibesString();
         }
         return vibesString;
     }
-    
+
     // Update the string representation from the list
     private void updateVibesString() {
-        if (vibesList != null && !vibesList.isEmpty()) {
+        if (vibes != null && !vibes.isEmpty()) {
             StringBuilder sb = new StringBuilder();
-            for (String vibe : vibesList) {
+            for (String vibe : vibes) {
                 if (sb.length() > 0) sb.append(",");
                 sb.append(vibe.trim());
             }
@@ -142,22 +142,22 @@ public class Trips {
             vibesString = "";
         }
     }
-    
+
     // Add a single vibe
     public void addVibe(String vibe) {
-        if (vibesList == null) {
-            vibesList = new ArrayList<>();
+        if (vibes == null) {
+            vibes = new ArrayList<>();
         }
-        if (!vibesList.contains(vibe)) {
-            vibesList.add(vibe);
+        if (!vibes.contains(vibe)) {
+            vibes.add(vibe);
             updateVibesString();
         }
     }
-    
+
     // Remove a vibe
     public void removeVibe(String vibe) {
-        if (vibesList != null) {
-            vibesList.remove(vibe);
+        if (vibes != null) {
+            vibes.remove(vibe);
             updateVibesString();
         }
     }
