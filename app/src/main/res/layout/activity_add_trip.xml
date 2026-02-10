@@ -146,6 +146,61 @@
                 app:chipBackgroundColor="@color/category_chip_selector"
                 app:chipStrokeColor="?attr/colorPrimary"
                 app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/food"
+                app:checkedIcon="@null"
+                app:chipBackgroundColor="@color/category_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/shopping"
+                app:checkedIcon="@null"
+                app:chipBackgroundColor="@color/category_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/relaxing"
+                app:checkedIcon="@null"
+                app:chipBackgroundColor="@color/category_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/historic_category"
+                app:checkedIcon="@null"
+                app:chipBackgroundColor="@color/category_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/religious"
+                app:checkedIcon="@null"
+                app:chipBackgroundColor="@color/category_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp" />
         </com.google.android.material.chip.ChipGroup>
 
         <!-- Price Input -->
@@ -249,6 +304,54 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/scenic"
+                app:checkedIcon="@drawable/ic_check"
+                app:chipBackgroundColor="@color/vibe_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:closeIcon="@null"
+                app:closeIconTint="?attr/colorPrimary" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/family_friendly"
+                app:checkedIcon="@drawable/ic_check"
+                app:chipBackgroundColor="@color/vibe_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:closeIcon="@null"
+                app:closeIconTint="?attr/colorPrimary" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/romantic"
+                app:checkedIcon="@drawable/ic_check"
+                app:chipBackgroundColor="@color/vibe_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:closeIcon="@null"
+                app:closeIconTint="?attr/colorPrimary" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/free_entry"
+                app:checkedIcon="@drawable/ic_check"
+                app:chipBackgroundColor="@color/vibe_chip_selector"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:closeIcon="@null"
+                app:closeIconTint="?attr/colorPrimary" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hidden_gem"
                 app:checkedIcon="@drawable/ic_check"
                 app:chipBackgroundColor="@color/vibe_chip_selector"
                 app:chipStrokeColor="?attr/colorPrimary"

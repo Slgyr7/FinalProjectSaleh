@@ -54,7 +54,7 @@ public class AddTripActivity extends AppCompatActivity {
         // Initialize input fields and layouts
         ivTripImage = findViewById(R.id.ivTripImage);
         etTitle= findViewById(R.id.etTitle);
-        etAddress= findViewById(R.id.etAdress);
+        //adress
         etPrice= findViewById(R.id.etPrice);
         etRating= findViewById(R.id.etRating);
         categoryChipGroup= findViewById(R.id.categoryChipGroup);
@@ -84,7 +84,7 @@ public class AddTripActivity extends AppCompatActivity {
                 String ratingStr = etRating.getText().toString().trim();
 
                 // Validate inputs
-                if (validat(titleStr, addressStr, priceStr, ratingStr)) {
+                if (validate(titleStr, addressStr, priceStr, ratingStr)) {
                     // --- Get Chip Text ---
                     int categoryId = categoryChipGroup.getCheckedChipId();
                     Chip selectedCategoryChip = findViewById(categoryId);
@@ -113,7 +113,7 @@ public class AddTripActivity extends AppCompatActivity {
             }
         );
     }
-    private boolean validat(String title, String address, String price, String rating) {
+    private boolean validate(String title, String address, String price, String rating) {
         boolean isValid = true;
         //Reset errors
         title_lyot.setError(null);
@@ -186,7 +186,7 @@ public class AddTripActivity extends AppCompatActivity {
             }
         }
 
-        return true;
+        return isValid;
     }
 
 

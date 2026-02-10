@@ -21,6 +21,9 @@
     <color name="rating_track">#E0E0E0</color>    <!-- Grey 300 -->
     <color name="rating_text">#757575</color>      <!-- Grey 600 -->
     
+    <!-- Additional Colors -->
+    <color name="purple_500">#9C27B0</color>  <!-- Purple 500 -->
+    
     <!-- You can add your black and white here too -->
     <!-- <color name="black">#000000</color> -->
 

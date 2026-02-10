@@ -17,8 +17,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import saleh.nis.finalprojectsaleh.R;
-// This class is not imported because it's in the same package
-// import saleh.nis.finalprojectsaleh.data.TripsTable.Trips;
+import saleh.nis.finalprojectsaleh.data.TripsTable.Trips;
 
 // 3. THE CLASS must extend ArrayAdapter
 public class TripsAdapter extends ArrayAdapter<Trips> {

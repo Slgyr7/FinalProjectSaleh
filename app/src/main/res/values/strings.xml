@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">FinalProjectSaleh</string>
     
+    <!-- Image Descriptions -->
+    <string name="trip_image_desc">Trip image</string>
+    
     <!-- Site Activity -->
     <string name="site_image">Site image</string>
     <string name="open_now">Open now</string>
@@ -16,7 +19,7 @@
     <string name="contact">Contact</string>
     <string name="location">Location</string>
     <string name="rating_label">Rating</string>
-    <string name="rating_hint">0.0 - 5.0</string>
+    
     <string name="rating_error_invalid">Please enter a valid rating between 0 and 5</string>
     <string name="rating_hint_desc">Enter a rating between 0.0 and 5.0</string>
     <string name="clear_rating">Clear rating</string>
@@ -158,6 +161,19 @@
     <string name="historic">Historic</string>
     <string name="scenic">Scenic</string>
     
+    <!-- New Category Strings -->
+    <string name="food">Food</string>
+    <string name="shopping">Shopping</string>
+    <string name="relaxing">Relaxing</string>
+    <string name="historic_category">Historic</string>
+    <string name="religious">Religious</string>
+    
+    <!-- New Vibe Strings -->
+    <string name="family_friendly">Family Friendly</string>
+    <string name="romantic">Romantic</string>
+    <string name="free_entry">Free Entry</string>
+    <string name="hidden_gem">Hidden Gem</string>
+    
     <!-- Validation Messages -->
     <string name="error_title_required">Please enter a title</string>
     <string name="error_location_required">Please enter a location</string>
@@ -254,7 +270,7 @@
     <!-- Sharing -->
     <string name="share_trip">Share Trip</string>
     <string name="share_trip_subject">Check out my trip to %1$s</string>
-    <string name="share_trip_text">I'm planning a trip to %1$s from %2$s to %3$s. %4$s</string>
+
     
     <!-- Trip Description -->
     <string name="trip_description">Description</string>
@@ -267,7 +283,7 @@
     <!-- Privacy -->
     <string name="privacy_settings">Privacy Settings</string>
     <string name="make_public">Make this trip public</string>
-    <string name="public_trip_description">Public trips can be seen by other users</string>
+    <string name="description_public_trip_">Public trips can be seen by other users</string>
     
     <!-- Reminders -->
     <string name="set_reminder">Set Reminder</string>
@@ -422,9 +438,7 @@
     
     <!-- Trip Privacy -->
     <string name="privacy">Privacy</string>
-    <string name="public">Public</string>
-    <string name="private">Private</string>
-    <string name="public_description">Anyone with the link can view</string>
+    <string name="who_can_public_description">Anyone with the link can view</string>
     <string name="private_description">Only you can view</string>
     
     <!-- Trip Notifications -->
@@ -477,4 +491,6 @@
     <string name="rate_4_stars">Rate 4 stars out of 5</string>
     <string name="rate_5_stars">Rate 5 stars out of 5</string>
     <string name="rating_selected">%1$d stars selected</string>
+
+    <!-- <string name="share_trip_text">I'm planning a trip to %1$s!</string> -->
 </resources>
