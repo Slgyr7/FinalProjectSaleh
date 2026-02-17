@@ -29,13 +29,13 @@ public class AddTripActivity extends AppCompatActivity {
     private Button btnSubmit;
     private TextInputLayout title_lyot, location_lyot, price_lyot, rating_lyot;
 
-    private static final String PREF_NAME = "Trips data";
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_ADDRESS = "address";
-    private static final String KEY_PRICE = "price";
-    private static final String KEY_RATING = "rating";
-    private static final String KEY_CATEGORY = "category";
-    private static final String KEY_VIBE = "vibe";
+//     private static final String PREF_NAME = "Trips data";
+//    private static final String KEY_TITLE = "title";
+//    private static final String KEY_ADDRESS = "address";
+//    private static final String KEY_PRICE = "price";
+//    private static final String KEY_RATING = "rating";
+//    private static final String KEY_CATEGORY = "category";
+//    private static final String KEY_VIBE = "vibe";
 
 
     @Override
@@ -96,18 +96,18 @@ public class AddTripActivity extends AppCompatActivity {
 
 
                     // Save trip to database
-                   if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
-                       //Trip add successfull
-                       Toast.makeText(AddTripActivity.this, "Trip added successfully", Toast.LENGTH_SHORT).show();
-                       //Go to plan trips
-                       Intent intent = new Intent(AddTripActivity.this, plan_trips.class);
-                       startActivity(intent);
-                       finishAffinity();
-                       }
-                   else {
-                       //Trip add failed
-                       Toast.makeText(AddTripActivity.this, "Trip add failed", Toast.LENGTH_SHORT).show();
-                   }
+//                   if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
+//                       //Trip add successfull
+//                       Toast.makeText(AddTripActivity.this, "Trip added successfully", Toast.LENGTH_SHORT).show();
+//                       //Go to plan trips
+//                       Intent intent = new Intent(AddTripActivity.this, plan_trips.class);
+//                       startActivity(intent);
+//                       finishAffinity();
+//                       }
+//                   else {
+//                       //Trip add failed
+//                       Toast.makeText(AddTripActivity.this, "Trip add failed", Toast.LENGTH_SHORT).show();
+//                   }
                    }
                 }
             }
@@ -191,27 +191,27 @@ public class AddTripActivity extends AppCompatActivity {
 
 
     // Update the method signature and body
-    private boolean saveTripToDatabase(String title, String address, String price, String rating, String category, String vibe) {
-        try {
-            SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            // Store all data
-            editor.putString(KEY_TITLE, title);
-            editor.putString(KEY_ADDRESS, address);
-            editor.putString(KEY_PRICE, price);
-            editor.putString(KEY_RATING, rating);
-            editor.putString(KEY_CATEGORY, category); // Save category
-            editor.putString(KEY_VIBE, vibe);
-
-            //Apply changes
-            editor.apply();
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-
-        }
-    }
+//    private boolean saveTripToDatabase(String title, String address, String price, String rating, String category, String vibe) {
+//        try {
+//            SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//            // Store all data
+//            editor.putString(KEY_TITLE, title);
+//            editor.putString(KEY_ADDRESS, address);
+//            editor.putString(KEY_PRICE, price);
+//            editor.putString(KEY_RATING, rating);
+//            editor.putString(KEY_CATEGORY, category); // Save category
+//            editor.putString(KEY_VIBE, vibe);
+//
+//            //Apply changes
+//            editor.apply();
+//            return true;
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//
+//        }
+//    }
 }

@@ -32,7 +32,7 @@
         <item name="cardCornerRadius">16dp</item>
     </style>
 
-    <style name="Widget.App.FeatureCardContent" parent="Widget.AppCompat.LinearLayout">
+    <style name="Widget.App.FeatureCardContent" parent="Theme.Material3.DayNight">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">140dp</item>
         <item name="android:gravity">center</item>
@@ -40,7 +40,7 @@
         <item name="android:padding">16dp</item>
     </style>
 
-    <style name="Widget.App.FeatureCardIcon" parent="Widget.AppCompat.ImageView">
+    <style name="Widget.App.FeatureCardIcon" parent="Theme.Material3.DayNight">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
         <item name="tint">?attr/colorPrimary</item>

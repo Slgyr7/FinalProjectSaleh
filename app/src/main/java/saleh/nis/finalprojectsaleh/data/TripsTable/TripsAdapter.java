@@ -62,7 +62,7 @@ public class TripsAdapter extends ArrayAdapter<Trips> {
             // B. Handle the multiple vibes chips
             vibesChipGroup.removeAllViews(); // Clear old chips
 
-            String vibesString = currentTrip.getVibes(); // e.g., "Historic, Outdoors, Romance"
+            String vibesString = currentTrip.getVibesString(); // e.g., "Historic, Outdoors, Romance"
             if (vibesString != null && !vibesString.isEmpty()) {
                 String[] vibesArray = vibesString.split(",");
 

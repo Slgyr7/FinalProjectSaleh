@@ -18,18 +18,17 @@ public class Trips {
     public long keyid;
     @ColumnInfo
     public String title;
-    public Chip Category;
+    public String Category;
     public double Rating ;
     public double Price;
     public String Address;
    public String Status;
     //public String Address;
-    public ShapeableImageView attractionimage;
+    public String attractionimage;
     @Ignore
     private List<String> vibes = new ArrayList<>();
 
     // For Room database compatibility
-    @ColumnInfo(name = "vibes")
     private String vibesString;  // Stores comma-separated vibes for database
 
     @Override
@@ -58,12 +57,7 @@ public class Trips {
     public void setTitle(String title) {
         this.title = title;
     }
-    public Chip getCategory() {
-        return Category;
-    }
-    public void setCategory(Chip category) {
-        Category = category;
-    }
+
     public double getRating() {
         return Rating;
     }
@@ -90,13 +84,7 @@ public class Trips {
         Address = address;
     }
 
-    public ShapeableImageView getAttractionimage() {
-        return attractionimage;
-    }
 
-    public void setAttractionimage(ShapeableImageView attractionimage) {
-        this.attractionimage = attractionimage;
-    }
 
     // Get vibes as List
     public List<String> getVibes() {
@@ -160,5 +148,25 @@ public class Trips {
             vibes.remove(vibe);
             updateVibesString();
         }
+    }
+
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
+
+    public String getAttractionimage() {
+        return attractionimage;
+    }
+
+    public void setAttractionimage(String attractionimage) {
+        this.attractionimage = attractionimage;
+    }
+
+    public void setVibesString(String vibesString) {
+        this.vibesString = vibesString;
     }
 }
