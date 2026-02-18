@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "732526560877",
+    "project_id": "finalprojectsaleh",
+    "storage_bucket": "finalprojectsaleh.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732526560877:android:128f41e7a9d60a43dbe164",
+        "android_client_info": {
+          "package_name": "saleh.nis.finalprojectsaleh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvw3v8J8_W7y9XrrgIiR3mpSHKY2a34Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

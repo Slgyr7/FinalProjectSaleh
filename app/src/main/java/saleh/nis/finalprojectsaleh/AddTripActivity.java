@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.media.Rating;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +23,11 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import saleh.nis.finalprojectsaleh.data.TripsTable.Trips;
 
 public class AddTripActivity extends AppCompatActivity {
     private ImageView ivTripImage ;
@@ -72,54 +79,24 @@ public class AddTripActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Reset errors
-                title_lyot.setError(null);
-                location_lyot.setError(null);
-                price_lyot.setError(null);
-                rating_lyot.setError(null);
 
-                // Get input values
-                String titleStr = etTitle.getText().toString().trim();
-                String addressStr = etAddress.getText().toString().trim();
-                String priceStr = etPrice.getText().toString().trim();
-                String ratingStr = etRating.getText().toString().trim();
-
-                // Validate inputs
-                if (validate(titleStr, addressStr, priceStr, ratingStr)) {
-                    // --- Get Chip Text ---
-                    int categoryId = categoryChipGroup.getCheckedChipId();
-                    Chip selectedCategoryChip = findViewById(categoryId);
-                    String categoryStr = selectedCategoryChip.getText().toString();
-
-                    int vibeId = vibesChipGroup.getCheckedChipId();
-                    Chip selectedVibeChip = findViewById(vibeId);
-                    String vibeStr = selectedVibeChip.getText().toString();
-
-
-                    // Save trip to database
-//                   if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
-//                       //Trip add successfull
-//                       Toast.makeText(AddTripActivity.this, "Trip added successfully", Toast.LENGTH_SHORT).show();
-//                       //Go to plan trips
-//                       Intent intent = new Intent(AddTripActivity.this, plan_trips.class);
-//                       startActivity(intent);
-//                       finishAffinity();
-//                       }
-//                   else {
-//                       //Trip add failed
-//                       Toast.makeText(AddTripActivity.this, "Trip add failed", Toast.LENGTH_SHORT).show();
-//                   }
-                   }
                 }
             }
         );
     }
-    private boolean validate(String title, String address, String price, String rating) {
+    private boolean validate() {
         boolean isValid = true;
         //Reset errors
         title_lyot.setError(null);
         location_lyot.setError(null);
         price_lyot.setError(null);
         rating_lyot.setError(null);
+
+        String title = etTitle.getText().toString().trim();
+        String address = etAddress.getText().toString().trim();
+        String price = etPrice.getText().toString().trim();
+        String rating = etRating.getText().toString().trim();
+
 
         if (title.isEmpty()) {
             title_lyot.setError("Title is required");
@@ -186,6 +163,56 @@ public class AddTripActivity extends AppCompatActivity {
             }
         }
 
+
+
+
+        // Validate inputs
+
+            // --- Get Chip Text ---
+            int categoryId = categoryChipGroup.getCheckedChipId();
+            Chip selectedCategoryChip = findViewById(categoryId);
+            String categoryStr = selectedCategoryChip.getText().toString();
+
+            int vibeId = vibesChipGroup.getCheckedChipId();
+            Chip selectedVibeChip = findViewById(vibeId);
+            String vibeStr = selectedVibeChip.getText().toString();
+
+            // Get all selected chips values from vibesChipGroup
+            List<String> selectedVibes = new ArrayList<>();
+            for (int i = 0; i < vibesChipGroup.getChildCount(); i++) {
+                Chip chip = (Chip) vibesChipGroup.getChildAt(i);
+                if (chip.isChecked()) {
+                    selectedVibes.add(chip.getText().toString());
+                }
+            }
+            String vibesStr = TextUtils.join(", ", selectedVibes);
+
+
+            // Save trip to database
+//                   if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
+//                       //Trip add successfull
+//                       Toast.makeText(AddTripActivity.this, "Trip added successfully", Toast.LENGTH_SHORT).show();
+//                       //Go to plan trips
+//                       Intent intent = new Intent(AddTripActivity.this, plan_trips.class);
+//                       startActivity(intent);
+//                       finishAffinity();
+//                       }
+//                   else {
+//                       //Trip add failed
+//                       Toast.makeText(AddTripActivity.this, "Trip add failed", Toast.LENGTH_SHORT).show();
+//                   }
+
+        if (isValid)
+        {
+            Trips trips = new Trips();
+           trips.setAddress(address);
+           trips.setPrice(Double.parseDouble(price));
+           trips.setRating(Double.parseDouble(rating));
+           trips.setCategory(categoryStr);
+           trips.setVibes(vibeStr);
+           trips.setTitle(title);
+
+        }
         return isValid;
     }
 
