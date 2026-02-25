@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -30,6 +31,13 @@ android {
 
 dependencies {
     implementation libs.play.services.maps
+    implementation libs.firebase.auth
+    implementation libs.credentials
+    implementation libs.credentials.play.services.auth
+    implementation libs.googleid
+    implementation libs.firebase.database
+    implementation libs.firebase.storage
+    implementation libs.firebase.firestore
     def room_version = "2.6.1"
 
     implementation libs.appcompat

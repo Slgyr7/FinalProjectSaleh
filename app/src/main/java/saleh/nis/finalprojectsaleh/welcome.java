@@ -11,13 +11,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class welcome extends AppCompatActivity {
     // SharedPreferences keys
@@ -60,7 +65,19 @@ public class welcome extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attemptLogin();
+                emailInputLayout.setError(null);
+                passwordInputLayout.setError(null);
+                // Get input values
+                String email = emailEditText.getText().toString().trim();
+                String password = passwordEditText.getText().toString().trim();
+
+                if ( attemptLogin() )
+                {
+
+                }
+
+
+                signInUser(email, password);
             }
         });
 
@@ -84,8 +101,29 @@ public class welcome extends AppCompatActivity {
             }
         });
     }
-    
-    private void attemptLogin() {
+
+    private void signInUser(String email, String password) {
+        // Sign in with Firebase Authentication
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in successful
+                            Toast.makeText(welcome.this, "Log in successful!", Toast.LENGTH_SHORT).show();
+
+                            // Navigate to HomeScreen
+                            Intent intent = new Intent(welcome.this, HomeScreen.class);
+                            startActivity(intent);
+                            finishAffinity();
+                        } else {
+                            Toast.makeText(welcome.this, "Log in failed. Please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+    private boolean attemptLogin() {
+        boolean isValid = true;
         // Reset errors
         emailInputLayout.setError(null);
         passwordInputLayout.setError(null);
@@ -98,36 +136,39 @@ public class welcome extends AppCompatActivity {
         if (TextUtils.isEmpty(email)) {
             emailInputLayout.setError("Email is required");
             emailEditText.requestFocus();
-            return;
+            isValid = false;
         }
         
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailInputLayout.setError("Please enter a valid email");
             emailEditText.requestFocus();
-            return;
+            isValid = false;
         }
         
         if (TextUtils.isEmpty(password)) {
             passwordInputLayout.setError("Password is required");
             passwordEditText.requestFocus();
-            return;
+            isValid = false;
         }
         
-        // Check credentials
-        if (validateCredentials(email, password)) {
+        // Check credentials only if inputs are valid
+        if (isValid ) {
             // Login successful
             Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(welcome.this, HomeScreen.class);
             startActivity(intent);
             finish();
-        } else {
-            // Login failed
+        } else if (isValid) {
+            // Login failed (credentials invalid)
             passwordInputLayout.setError("Invalid email or password");
             passwordEditText.requestFocus();
             Toast.makeText(this, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();
+            isValid = false;
         }
+        
+        return isValid;
     }
-    
+
     private boolean validateCredentials(String email, String password) {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String savedEmail = sharedPreferences.getString(KEY_EMAIL, "");

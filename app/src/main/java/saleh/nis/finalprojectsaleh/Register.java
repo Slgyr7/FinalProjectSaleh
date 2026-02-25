@@ -11,13 +11,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
@@ -91,7 +96,8 @@ public class Register extends AppCompatActivity {
 
                 // Validate inputs
                 if (validateInputs(usernameStr, emailStr, passwordStr, phoneStr)) {
-                    // Save user data
+                    signUpUser(emailStr, passwordStr);
+                    // Save user data room db
                     if (saveUserData(usernameStr, emailStr, passwordStr, phoneStr)) {
                         // Registration successful
                         Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_SHORT).show();
@@ -106,6 +112,27 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void signUpUser(String email, String password) {
+        // Create user with Firebase Authentication
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign up successful
+                            Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+
+                            // Navigate to HomeScreen
+                            Intent intent = new Intent(Register.this, HomeScreen.class);
+                            startActivity(intent);
+                            finishAffinity();
+                        } else {
+                            Toast.makeText(Register.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 //njk''hg\j/k
     private boolean validateInputs(String username, String email, String password, String phone) {
@@ -169,13 +196,13 @@ public class Register extends AppCompatActivity {
             // Get SharedPreferences editor
             SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            
+
             // Store user data
             editor.putString(KEY_USERNAME, username);
             editor.putString(KEY_EMAIL, email);
             editor.putString(KEY_PASSWORD, password); // In a real app, you should hash the password
             editor.putString(KEY_PHONE, phone);
-            
+
             // Apply changes
             editor.apply();
             return true;
