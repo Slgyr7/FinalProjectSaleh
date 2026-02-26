@@ -73,11 +73,8 @@ public class welcome extends AppCompatActivity {
 
                 if ( attemptLogin() )
                 {
-
+                    signInUser(email, password);
                 }
-
-
-                signInUser(email, password);
             }
         });
 
@@ -127,11 +124,13 @@ public class welcome extends AppCompatActivity {
         // Reset errors
         emailInputLayout.setError(null);
         passwordInputLayout.setError(null);
+
+
         
         // Get values
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-        
+
         // Validate inputs
         if (TextUtils.isEmpty(email)) {
             emailInputLayout.setError("Email is required");
@@ -148,21 +147,6 @@ public class welcome extends AppCompatActivity {
         if (TextUtils.isEmpty(password)) {
             passwordInputLayout.setError("Password is required");
             passwordEditText.requestFocus();
-            isValid = false;
-        }
-        
-        // Check credentials only if inputs are valid
-        if (isValid ) {
-            // Login successful
-            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(welcome.this, HomeScreen.class);
-            startActivity(intent);
-            finish();
-        } else if (isValid) {
-            // Login failed (credentials invalid)
-            passwordInputLayout.setError("Invalid email or password");
-            passwordEditText.requestFocus();
-            Toast.makeText(this, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
         
