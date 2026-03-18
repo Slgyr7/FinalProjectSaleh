@@ -2,6 +2,7 @@ package saleh.nis.finalprojectsaleh;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -32,6 +33,21 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        CardView translateCard = findViewById(R.id.card_translator);
+        translateCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent translateIntent = new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=com.google.android.apps.translate")
+                );
+                if(translateIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(translateIntent);
+                }
+            }
+        });
+
 
     }
 }

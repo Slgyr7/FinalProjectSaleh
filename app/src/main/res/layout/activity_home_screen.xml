@@ -25,19 +25,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Header: Subtitle -->
+
+    <!-- User Profile Icon -->
     <TextView
         android:id="@+id/header_subtitle"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left"
         android:text="Where do you want to go today?"
         android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/profile_icon"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/welcome_message"
         app:layout_constraintTop_toBottomOf="@id/welcome_message" />
 
-    <!-- User Profile Icon -->
     <ImageView
         android:id="@+id/profile_icon"
         android:layout_width="48dp"

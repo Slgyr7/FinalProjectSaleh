@@ -3,6 +3,7 @@ package saleh.nis.finalprojectsaleh;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -38,6 +39,17 @@ public class plan_trips extends AppCompatActivity {
             public void onClick(View view) {
                 // Navigate to AddTripActivity
                 Intent intent = new Intent(plan_trips.this, AddTripActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set up back button click listener
+        ImageView backButton = findViewById(R.id.b_btn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate back to HomeScreen
+                Intent intent = new Intent(plan_trips.this, HomeScreen.class);
                 startActivity(intent);
             }
         });

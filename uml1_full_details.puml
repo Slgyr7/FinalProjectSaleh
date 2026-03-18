@@ -1,0 +1,293 @@
+@startuml
+class saleh.nis.finalprojectsaleh.welcome {
+- {static} String PREF_NAME
+- {static} String KEY_EMAIL
+- {static} String KEY_PASSWORD
+- TextInputEditText emailEditText
+- TextInputLayout emailInputLayout
+# void onCreate(Bundle)
+- void initializeViews()
+- void setupClickListeners()
+- void signInUser(String,String)
+- boolean attemptLogin()
+- boolean validateCredentials(String,String)
+}
+note left of saleh.nis.finalprojectsaleh.welcome::PREF_NAME
+ SharedPreferences keys
+end note
+note right of saleh.nis.finalprojectsaleh.welcome::emailEditText
+ UI elements
+end note
+
+
+class saleh.nis.finalprojectsaleh.plan_trips {
+- ListView lstTrips
+- TripsAdapter tripsadapterad
+# void onCreate(Bundle)
+# void onResume()
+}
+
+
+class saleh.nis.finalprojectsaleh.data.TripsTable.Trips {
++ long keyid
++ String title
++ String Category
++ double Rating
++ double Price
++ String Address
++ String Status
++ String attractionimage
+- List<String> vibes
+- String vibesString
++ String toString()
++ long getKeyid()
++ void setKeyid(long)
++ String getTitle()
++ void setTitle(String)
++ double getRating()
++ void setRating(double)
++ double getPrice()
++ void setPrice(double)
++ String getStatus()
++ void setStatus(String)
++ String getAddress()
++ void setAddress(String)
++ List<String> getVibes()
++ void setVibes(List<String>)
++ void setVibes(String)
++ String getVibesString()
+- void updateVibesString()
++ void addVibe(String)
++ void removeVibe(String)
++ String getCategory()
++ void setCategory(String)
++ String getAttractionimage()
++ void setAttractionimage(String)
++ void setVibesString(String)
+}
+note left of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::attractionimage
+public String Address;
+end note
+note right of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::vibesString
+ Stores comma-separated vibes for database
+end note
+
+note left of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::getVibes()
+ Get vibes as List
+end note
+note right of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::setVibes(List<String>)
+ Set vibes from List
+end note
+note left of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::setVibes(String)
+ Set vibes from comma-separated string
+end note
+note right of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::getVibesString()
+ Get vibes as comma-separated string (for database)
+end note
+note left of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::updateVibesString()
+ Update the string representation from the list
+end note
+note right of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::addVibe(String)
+ Add a single vibe
+end note
+note left of saleh.nis.finalprojectsaleh.data.TripsTable.Trips::removeVibe(String)
+ Remove a vibe
+end note
+
+class saleh.nis.finalprojectsaleh.HomeScreen {
+# void onCreate(Bundle)
+}
+
+class saleh.nis.finalprojectsaleh.data.TripsTable.TripsAdapter {
++ View getView(int,View,ViewGroup)
+}
+note top of saleh.nis.finalprojectsaleh.data.TripsTable.TripsAdapter
+ 3. THE CLASS must extend ArrayAdapter
+end note
+
+
+class saleh.nis.finalprojectsaleh.Register {
+- ImageView backButton
+- Button createAccountButton
+- TextInputEditText usernameEditText
+- TextInputLayout usernameLayout
+- {static} String PREF_NAME
+- {static} String KEY_USERNAME
+- {static} String KEY_EMAIL
+- {static} String KEY_PASSWORD
+- {static} String KEY_PHONE
+# void onCreate(Bundle)
+- void signUpUser(String,String)
+- boolean validateInputs(String,String,String,String)
+- boolean saveUserData(String,String,String,String)
+}
+note left of saleh.nis.finalprojectsaleh.Register::backButton
+ Declare the views for the buttons and input fields
+end note
+note right of saleh.nis.finalprojectsaleh.Register::PREF_NAME
+ SharedPreferences for local storage
+end note
+
+note left of saleh.nis.finalprojectsaleh.Register::validateInputs(String,String,String,String)
+njk''hg\j/k
+end note
+
+class saleh.nis.finalprojectsaleh.data.MySiteTable.site {
++ long keyid
++ int name
++ int Category
++ double Rating
++ int Opentime
++ int CloseTime
++ int Cost
++ int Image
++ int Address
++ int Phone
++ int Website
++ String toString()
++ long getKeyid()
++ void setKeyid(long)
++ int getName()
++ void setName(int)
++ int getCategory()
++ void setCategory(int)
++ double getRating()
++ void setRating(double)
++ int getOpentime()
++ void setOpentime(int)
++ int getCloseTime()
++ void setCloseTime(int)
++ int getCost()
++ void setCost(int)
++ int getImage()
++ void setImage(int)
++ int getAddress()
++ void setAddress(int)
++ int getPhone()
++ void setPhone(int)
++ int getWebsite()
++ void setWebsite(int)
+}
+
+
+class saleh.nis.finalprojectsaleh.site {
+# void onCreate(Bundle)
+}
+
+class saleh.nis.finalprojectsaleh.AddTripActivity {
+- ImageView ivTripImage
+- TextInputEditText etTitle
+- ChipGroup categoryChipGroup
+- Button btnSubmit
+- TextInputLayout title_lyot
+# void onCreate(Bundle)
+- boolean validate()
+}
+
+
+abstract class saleh.nis.finalprojectsaleh.data.AppDataBase {
+- {static} AppDataBase dp
++ {abstract}MyUserQuery getMyUserQuery()
++ {abstract}SiteQuery getSiteQuery()
++ {abstract}TripsQuery getTripsQuery()
++ {static} AppDataBase getDB(Context)
+}
+
+
+interface saleh.nis.finalprojectsaleh.data.MySiteTable.SiteQuery {
+~ List<site> getAllSite()
+~ List<site> getAllSiteByReview(String)
+~ List<site> getAllSiteByReview(String,Integer)
+~ void insertAll(site)
+~ void delete(site)
+~ void deletesite(long)
+~ void update(site)
+~ List<site> getAllSiteByType(long)
+}
+
+class saleh.nis.finalprojectsaleh.SplashScreen {
+- {static} int SPLASH_DURATION
+# void onCreate(Bundle)
+}
+note left of saleh.nis.finalprojectsaleh.SplashScreen::SPLASH_DURATION
+ 3000ms = 3 seconds
+end note
+
+
+class saleh.nis.finalprojectsaleh.ForgotPassword {
+# void onCreate(Bundle)
+}
+
+class saleh.nis.finalprojectsaleh.data.UserProfileTable.MyUser {
++ long keyid
++ String fullName
++ String email
++ String phone
++ String passw
++ String toString()
++ long getKeyid()
++ void setKeyid(long)
++ String getFullName()
++ void setFullName(String)
++ String getEmail()
++ void setEmail(String)
++ String getPhone()
++ void setPhone(String)
++ String getPassw()
++ void setPassw(String)
+}
+note left of saleh.nis.finalprojectsaleh.data.UserProfileTable.MyUser::keyid
+
+     * فئة تمثل المستعمل
+     
+end note
+note right of saleh.nis.finalprojectsaleh.data.UserProfileTable.MyUser::email
+بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
+end note
+
+
+interface saleh.nis.finalprojectsaleh.data.TripsTable.TripsQuery {
+~ List<Trips> getAllTrips()
+~ List<Trips> getTripsByName(String)
+~ List<Trips> getTripsByCategory(String)
+~ List<Trips> getTripsByStatus(String)
+~ List<Trips> getTripsByMinRating(double)
+~ List<Trips> getTripsByPriceRange(double,double)
+~ List<Trips> getTripsCheaperThan(double)
+~ List<Trips> getTripsMoreExpensiveThan(double)
+~ List<Trips> getTripsByPriceAscending()
+~ List<Trips> getTripsByPriceDescending()
+~ double getAverageTripPrice()
+~ void deleteTripById(long)
+~ List<Trips> getTripsByMinPrice(double)
+~ List<Trips> getTripsByAddress(String)
+~ void insertAll(Trips)
+~ void update(Trips)
+~ void delete(Trips)
+}
+
+interface saleh.nis.finalprojectsaleh.data.UserProfileTable.MyUserQuery {
+~ List<MyUser> getAll()
+~ List<MyUser> loadAllByIds(int[])
+~ MyUser checkEmailPassw(String,String)
+~ MyUser checkEmail(String)
+~ void insertAll(MyUser)
+~ void delete(MyUser)
+~ void delete(int)
+~ void insert(MyUser)
+~ void update(MyUser)
+}
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- saleh.nis.finalprojectsaleh.welcome
+androidx.appcompat.app.AppCompatActivity <|-- saleh.nis.finalprojectsaleh.plan_trips
+androidx.appcompat.app.AppCompatActivity <|-- saleh.nis.finalprojectsaleh.HomeScreen
+android.widget.ArrayAdapter <|-- saleh.nis.finalprojectsaleh.data.TripsTable.TripsAdapter
+androidx.appcompat.app.AppCompatActivity <|-- saleh.nis.finalprojectsaleh.Register
+androidx.appcompat.app.AppCompatActivity <|-- saleh.nis.finalprojectsaleh.site
+androidx.appcompat.app.AppCompatActivity <|-- saleh.nis.finalprojectsaleh.AddTripActivity
+androidx.room.RoomDatabase <|-- saleh.nis.finalprojectsaleh.data.AppDataBase
+androidx.appcompat.app.AppCompatActivity <|-- saleh.nis.finalprojectsaleh.SplashScreen
+androidx.appcompat.app.AppCompatActivity <|-- saleh.nis.finalprojectsaleh.ForgotPassword
+@enduml

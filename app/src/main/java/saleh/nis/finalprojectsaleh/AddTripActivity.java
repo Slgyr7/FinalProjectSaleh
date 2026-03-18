@@ -189,7 +189,7 @@ public class AddTripActivity extends AppCompatActivity {
 
 
             // Save trip to database
-//                   if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
+           //       if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
 //                       //Trip add successfull
 //                       Toast.makeText(AddTripActivity.this, "Trip added successfully", Toast.LENGTH_SHORT).show();
 //                       //Go to plan trips
