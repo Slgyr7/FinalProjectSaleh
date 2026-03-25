@@ -15,8 +15,11 @@
         android:padding="16dp">
 
         <!-- Header -->
+
+        <!-- Image Upload -->
+
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="Add New Trip"
@@ -24,7 +27,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Image Upload -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/imageCardView"
             android:layout_width="match_parent"
@@ -110,9 +112,7 @@
             android:id="@+id/categoryChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:singleLine="true"
-            app:singleSelection="true">
+            android:layout_marginBottom="16dp">
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.Material3.Chip.Filter"

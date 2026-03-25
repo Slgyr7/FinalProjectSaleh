@@ -19,14 +19,13 @@
         <!-- Image on the left -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_trip_attraction"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="82dp"
+            android:layout_height="116dp"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
-           />
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
 
         <!-- Vertical layout for all text content -->
         <LinearLayout
@@ -125,15 +124,37 @@
             </LinearLayout>
 
 
-            <!-- **FIX 2: VIBES CHIPGROUP IS NOW EMPTY** -->
-            <!-- We will add chips here from the code -->
+            <!-- VIBES CHIPGROUP -->
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/cg_vibes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:chipSpacingHorizontal="6dp"
-                app:singleLine="true"/>
+                app:chipSpacingHorizontal="4dp"
+                app:chipSpacingVertical="2dp"
+                app:singleLine="false"
+                app:chipMinHeight="22dp"
+                app:chipCornerRadius="8dp">
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Romantic"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Family Friendly"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Adventure"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+            </com.google.android.material.chip.ChipGroup>
 
         </LinearLayout>
 
