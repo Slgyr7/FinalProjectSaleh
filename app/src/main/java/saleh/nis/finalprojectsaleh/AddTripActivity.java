@@ -1,36 +1,49 @@
 package saleh.nis.finalprojectsaleh;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.Image;
-import android.media.Rating;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import saleh.nis.finalprojectsaleh.data.AppDataBase;
 import saleh.nis.finalprojectsaleh.data.TripsTable.Trips;
 
 public class AddTripActivity extends AppCompatActivity {
-    private ImageView ivTripImage ;
+    private final int IMAGE_PICK_CODE=100;// קוד מזהה לבקשת בחירת תמונה
+    private final int PERMISSION_CODE=101;//קוד מזהה לבחירת הרשאת גישה
+    private ImageButton imgBtn;
+    private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
+    private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלאה
+
+
+    private ImageView ivTripImage;
     private TextInputEditText etTitle, etAddress, etPrice, etRating;
     private ChipGroup categoryChipGroup, vibesChipGroup;
     private Button btnSubmit;
@@ -60,12 +73,12 @@ public class AddTripActivity extends AppCompatActivity {
 
         // Initialize input fields and layouts
         ivTripImage = findViewById(R.id.ivTripImage);
-        etTitle= findViewById(R.id.etTitle);
+        etTitle = findViewById(R.id.etTitle);
         //adress
-        etPrice= findViewById(R.id.etPrice);
-        etRating= findViewById(R.id.etRating);
-        categoryChipGroup= findViewById(R.id.categoryChipGroup);
-        vibesChipGroup= findViewById(R.id.vibesChipGroup);
+        etPrice = findViewById(R.id.etPrice);
+        etRating = findViewById(R.id.etRating);
+        categoryChipGroup = findViewById(R.id.categoryChipGroup);
+        vibesChipGroup = findViewById(R.id.vibesChipGroup);
 
         // Initialize TextInputLayouts
         title_lyot = findViewById(R.id.title_lyot);
@@ -73,17 +86,30 @@ public class AddTripActivity extends AppCompatActivity {
         price_lyot = findViewById(R.id.price_lyot);
         rating_lyot = findViewById(R.id.rating_lyot);
 
-        btnSubmit = findViewById(R.id.btnSubmit);
-        btnSubmit.setOnClickListener(new View.OnClickListener()
-                                     {
+//upload: 3
+        imgBtn=findViewById(R.id.imageCardView);
+        imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // Reset errors
+            public void onClick(View view) {
+                //upload: 8
+                checkPermission();
 
-                }
             }
+        });
+
+
+
+        btnSubmit = findViewById(R.id.btnSubmit);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View v) {
+                                             // Reset errors
+                                             validate();
+                                         }
+                                     }
         );
     }
+
     private boolean validate() {
         boolean isValid = true;
         //Reset errors
@@ -102,7 +128,7 @@ public class AddTripActivity extends AppCompatActivity {
             title_lyot.setError("Title is required");
             etTitle.requestFocus();
             isValid = false;
-        }else if (title.length()< 3 ){
+        } else if (title.length() < 3) {
             title_lyot.setError("Title must be at least 3 characters");
             etTitle.requestFocus();
             isValid = false;
@@ -112,7 +138,7 @@ public class AddTripActivity extends AppCompatActivity {
             location_lyot.setError("Address is required");
             etAddress.requestFocus();
             isValid = false;
-        }else if (address.length() < 3) {
+        } else if (address.length() < 3) {
             location_lyot.setError("Address must be at least 3 characters");
             etAddress.requestFocus();
             isValid = false;
@@ -164,32 +190,30 @@ public class AddTripActivity extends AppCompatActivity {
         }
 
 
-
-
         // Validate inputs
 
-            // --- Get Chip Text ---
-            int categoryId = categoryChipGroup.getCheckedChipId();
-            Chip selectedCategoryChip = findViewById(categoryId);
-            String categoryStr = selectedCategoryChip.getText().toString();
+        // --- Get Chip Text ---
+        int categoryId = categoryChipGroup.getCheckedChipId();
+        Chip selectedCategoryChip = findViewById(categoryId);
+        String categoryStr = selectedCategoryChip.getText().toString();
 
-            int vibeId = vibesChipGroup.getCheckedChipId();
-            Chip selectedVibeChip = findViewById(vibeId);
-            String vibeStr = selectedVibeChip.getText().toString();
+        int vibeId = vibesChipGroup.getCheckedChipId();
+        Chip selectedVibeChip = findViewById(vibeId);
+        String vibeStr = selectedVibeChip.getText().toString();
 
-            // Get all selected chips values from vibesChipGroup
-            List<String> selectedVibes = new ArrayList<>();
-            for (int i = 0; i < vibesChipGroup.getChildCount(); i++) {
-                Chip chip = (Chip) vibesChipGroup.getChildAt(i);
-                if (chip.isChecked()) {
-                    selectedVibes.add(chip.getText().toString());
-                }
+        // Get all selected chips values from vibesChipGroup
+        List<String> selectedVibes = new ArrayList<>();
+        for (int i = 0; i < vibesChipGroup.getChildCount(); i++) {
+            Chip chip = (Chip) vibesChipGroup.getChildAt(i);
+            if (chip.isChecked()) {
+                selectedVibes.add(chip.getText().toString());
             }
-            String vibesStr = TextUtils.join(", ", selectedVibes);
+        }
+        String vibesStr = TextUtils.join(", ", selectedVibes);
 
 
-            // Save trip to database
-           //       if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
+        // Save trip to database
+        //       if (saveTripToDatabase(titleStr, addressStr, priceStr, ratingStr, categoryStr, vibeStr)) {
 //                       //Trip add successfull
 //                       Toast.makeText(AddTripActivity.this, "Trip added successfully", Toast.LENGTH_SHORT).show();
 //                       //Go to plan trips
@@ -202,20 +226,127 @@ public class AddTripActivity extends AppCompatActivity {
 //                       Toast.makeText(AddTripActivity.this, "Trip add failed", Toast.LENGTH_SHORT).show();
 //                   }
 
-        if (isValid)
-        {
+        if (isValid) {
             Trips trips = new Trips();
-           trips.setAddress(address);
-           trips.setPrice(Double.parseDouble(price));
-           trips.setRating(Double.parseDouble(rating));
-           trips.setCategory(categoryStr);
-           trips.setVibes(vibeStr);
-           trips.setTitle(title);
+            trips.setAddress(address);
+            trips.setPrice(Double.parseDouble(price));
+            trips.setRating(Double.parseDouble(rating));
+            trips.setCategory(categoryStr);
+            trips.setVibes(vibeStr);
+            trips.setTitle(title);
+            saveTrips(trips);
 
         }
         return isValid;
     }
 
+    private void pickImageFromGallery(){
+        //implicit intent (מרומז) to pick image
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,IMAGE_PICK_CODE);//הפעלתה האינטנט עם קוד הבקשה
+    }
+
+//upload: 5:handle result of picked images
+    /**
+     *
+     * @param requestCode מספר הקשה
+     * @param resultCode תוצאה הבקשה (אם נבחר משהו או בוטלה)
+     * @param data הנתונים שנבחרו
+     */
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        //אם נבחר משהו ואם זה קוד בקשת התמונה
+        if (resultCode==RESULT_OK && requestCode== IMAGE_PICK_CODE){
+            //a עידכון תכונת כתובת התמונה
+            toUploadimageUri = data.getData();//קבלת כתובת התמונה הנתונים שניבחרו
+            imgBtn.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
+        }
+    }
+//upload: 6
+    /**
+     * בדיקה האם יש הרשאה לגישה לקבצים בטלפון
+     */
+    private void checkPermission()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//בדיקת גרסאות
+            //בדיקה אם ההשאה לא אושרה בעבר
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                //רשימת ההרשאות שרוצים לבקש אישור
+                String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
+                //בקשת אישור ההשאות (שולחים קוד הבקשה)
+                //התשובה תתקבל בפעולה onRequestPermissionsResult
+                requestPermissions(permissions, PERMISSION_CODE);
+            } else {
+                //permission already granted אם יש הרשאה מקודם אז מפעילים בחירת תמונה מהטלפון
+                pickImageFromGallery();
+            }
+        }
+        else {//אם גרסה ישנה ולא צריך קבלת אישור
+            pickImageFromGallery();
+        }
+    }
+
+
+//upload: 7
+    /**
+     * @param requestCode The request code passed in מספר בקשת ההרשאה
+     * @param permissions The requested permissions. Never null. רשימת ההרשאות לאישור
+     * @param grantResults The grant results for the corresponding permissions תוצאה עבור כל הרשאה
+     *   PERMISSION_GRANTED אושר or PERMISSION_DENIED נדחה . Never null.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_CODE) {//בדיקת קוד בקשת ההרשאה
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //permission was granted אם יש אישור
+                pickImageFromGallery();
+            } else {
+                //permission was denied אם אין אישור
+                Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void saveTrips(Trips trips) {// الحصول على مرجع إلى عقدة "users" في قاعدة البيانات
+
+        // تهيئة Firebase Realtime Database    //مؤشر لقاعدة البيانات
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+// ‏مؤشر لجدول المستعملين
+        DatabaseReference dbRef = database.child("trips");
+        // إنشاء مفتاح فريد للمستخدم الجديد
+        DatabaseReference newtripsRef = dbRef.push();
+        // تعيين معرف المستخدم في كائن MyUser
+        trips.setTripsKey(newtripsRef.getKey());
+        // حفظ بيانات المستخدم في قاعدة البيانات
+        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص نجاح المطلوب
+      //  معالج حدث لفحص هل تم المطلوب من قاعدة البيانات //
+        newtripsRef.setValue(trips).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(AddTripActivity.this, "FB Task added successfully", Toast.LENGTH_SHORT).show();
+                    AppDataBase.getDB(AddTripActivity.this).getTripsQuery().insertAll(trips);
+                    finish();
+
+
+                } else {
+                    Toast.makeText(AddTripActivity.this, "FB Failed to add task", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+        });
+
+
+    }
+
+
+
+
+}
 
     // Update the method signature and body
 //    private boolean saveTripToDatabase(String title, String address, String price, String rating, String category, String vibe) {
@@ -241,4 +372,4 @@ public class AddTripActivity extends AppCompatActivity {
 //
 //        }
 //    }
-}
+

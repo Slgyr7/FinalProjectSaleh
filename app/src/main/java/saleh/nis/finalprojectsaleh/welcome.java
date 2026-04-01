@@ -112,7 +112,7 @@ public class welcome extends AppCompatActivity {
                             // Navigate to HomeScreen
                             Intent intent = new Intent(welcome.this, HomeScreen.class);
                             startActivity(intent);
-                            finishAffinity();
+                           finish();//close current activity
                         } else {
                             Toast.makeText(welcome.this, "Log in failed. Please try again.", Toast.LENGTH_SHORT).show();
                         }

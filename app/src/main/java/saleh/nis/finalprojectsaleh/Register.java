@@ -97,18 +97,7 @@ public class Register extends AppCompatActivity {
                 // Validate inputs
                 if (validateInputs(usernameStr, emailStr, passwordStr, phoneStr)) {
                     signUpUser(emailStr, passwordStr);
-                    // Save user data room db
-                    if (saveUserData(usernameStr, emailStr, passwordStr, phoneStr)) {
-                        // Registration successful
-                        Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
-                        // Navigate to HomeScreen
-                        Intent intent = new Intent(Register.this, HomeScreen.class);
-                        startActivity(intent);
-                        finishAffinity();
-                    } else {
-                        Toast.makeText(Register.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
         });
@@ -121,15 +110,25 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign up successful
-                            Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                            // Save user data room db
+                            // Get input values
+                            String usernameStr = usernameEditText.getText().toString().trim();
+                            String emailStr = emailEditText.getText().toString().trim();
+                            String passwordStr = passwordEditText.getText().toString().trim();
+                            String phoneStr = phoneEditText.getText().toString().trim();
+                            if (saveUserData(usernameStr, emailStr, passwordStr, phoneStr)) {
+                                // Registration successful
+                                Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
-                            // Navigate to HomeScreen
-                            Intent intent = new Intent(Register.this, HomeScreen.class);
-                            startActivity(intent);
-                            finishAffinity();
+                                // Navigate to HomeScreen
+                                Intent intent = new Intent(Register.this, HomeScreen.class);
+                                startActivity(intent);
+                                finishAffinity();
+                            } else {
+                                Toast.makeText(Register.this, "Registration  failed. Please try again.", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(Register.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "Registration SS failed. Please try again.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

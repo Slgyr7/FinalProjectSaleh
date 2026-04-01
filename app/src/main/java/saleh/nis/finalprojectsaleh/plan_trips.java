@@ -5,14 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -62,11 +69,42 @@ public class plan_trips extends AppCompatActivity {
     }
     protected void onResume() {
         super.onResume();
-
-        List<Trips> allTrips = AppDataBase.getDB(this).getTripsQuery().getAllTrips();
         tripsadapterad.clear();
+        List<Trips> allTrips = AppDataBase.getDB(this).getTripsQuery().getAllTrips();
         tripsadapterad.addAll(allTrips);
         tripsadapterad.notifyDataSetChanged();
 
+        //from firebase
+        getAllFromFirebase(tripsadapterad);
+
     }
+
+    private void getAllFromFirebase(TripsAdapter adapter) {
+        //عنوان قاعدة البيانات
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // عنوان مجموعة المعطيات داخل قاعدة البيانات
+        DatabaseReference myRef = database.getReference("trips");
+//إضافة listener مما يسبب الإصغاء لكل تغيير حتلنة عرض المعطيات//
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override//دالة معالج حدث تقوم بتلقى نسخة عن كل المعطيات عند أي تغيير
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                adapter.clear();//حذف كل المعطيات بالوسيط
+                for (DataSnapshot taskSnapshot : snapshot.getChildren()) {
+                    //  استخراج كل المعطيات على وتحويلها لكائن ملائم//
+                    Trips trips = taskSnapshot.getValue(Trips.class);
+                    adapter.add(trips);//اضافة كل معطى (كائن) للمنسق
+                }
+                adapter.notifyDataSetChanged();//اعلام المنسق بالتغيير
+                Toast.makeText(plan_trips.this, "Data fetched successfully", Toast.LENGTH_SHORT).show();
+
+
+            }
+            @Override//بحالة فشل استخراج المعطيات
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(plan_trips.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 }

@@ -30,6 +30,7 @@ public class Trips {
 
     // For Room database compatibility
     private String vibesString;  // Stores comma-separated vibes for database
+    private String tripsKey;
 
     @Override
     public String toString() {
@@ -168,5 +169,13 @@ public class Trips {
 
     public void setVibesString(String vibesString) {
         this.vibesString = vibesString;
+    }
+
+    public void setTripsKey(String tripsKey) {
+        this.tripsKey = tripsKey;
+    }
+
+    public String getTripsKey() {
+        return tripsKey;
     }
 }
