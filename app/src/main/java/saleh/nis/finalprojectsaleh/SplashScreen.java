@@ -11,9 +11,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SplashScreen extends AppCompatActivity {
 
-    // The duration the splash screen will be visible (in milliseconds)
     // 3000ms = 3 seconds
     private static final int SPLASH_DURATION = 3000;
 
@@ -21,31 +23,35 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // This enables the edge-to-edge display, which is good.
+        // Enables edge-to-edge display
         EdgeToEdge.enable(this);
-
-        // Set the layout for this activity
         setContentView(R.layout.activity_main);
 
-        // This listener handles padding for system bars (like status bar), which is part of EdgeToEdge
+        // Handle padding for system bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Use a Handler to post a delayed action to navigate to the next screen
+        // Use a Handler to check login status after the delay
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                // This code will execute after the SPLASH_DURATION
+                // 1. Check if a user is already logged into Firebase
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                // Create an Intent to start the welcome screen
-                // We assume your next screen is called 'welcome.java'
-                Intent intent = new Intent(SplashScreen.this, welcome.class);
-                startActivity(intent);
+                if (currentUser != null) {
+                    // 2. User IS logged in -> Go straight to Home Screen
+                    Intent intent = new Intent(SplashScreen.this, HomeScreen.class);
+                    startActivity(intent);
+                } else {
+                    // 3. User is NOT logged in -> Go to Welcome Screen
+                    Intent intent = new Intent(SplashScreen.this, welcome.class);
+                    startActivity(intent);
+                }
 
-                // Finish this activity so the user cannot navigate back to it
+                // Finish this activity so the user cannot go back to the splash screen
                 finish();
             }
         }, SPLASH_DURATION);

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,13 +37,13 @@ import saleh.nis.finalprojectsaleh.data.TripsTable.Trips;
 public class AddTripActivity extends AppCompatActivity {
     private final int IMAGE_PICK_CODE=100;// קוד מזהה לבקשת בחירת תמונה
     private final int PERMISSION_CODE=101;//קוד מזהה לבחירת הרשאת גישה
-    private ImageButton imgBtn;
+    private MaterialCardView imgBtn;
     private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלאה
 
 
     private ImageView ivTripImage;
-    private TextInputEditText etTitle, etAddress, etPrice, etRating;
+    private TextInputEditText etTitle, etLocation, etPrice, etRating;
     private ChipGroup categoryChipGroup, vibesChipGroup;
     private Button btnSubmit;
     private TextInputLayout title_lyot, location_lyot, price_lyot, rating_lyot;
@@ -74,7 +73,7 @@ public class AddTripActivity extends AppCompatActivity {
         // Initialize input fields and layouts
         ivTripImage = findViewById(R.id.ivTripImage);
         etTitle = findViewById(R.id.etTitle);
-        //adress
+        etLocation = findViewById(R.id.etLocation);
         etPrice = findViewById(R.id.etPrice);
         etRating = findViewById(R.id.etRating);
         categoryChipGroup = findViewById(R.id.categoryChipGroup);
@@ -119,7 +118,7 @@ public class AddTripActivity extends AppCompatActivity {
         rating_lyot.setError(null);
 
         String title = etTitle.getText().toString().trim();
-        String address = etAddress.getText().toString().trim();
+        String address = etLocation.getText().toString().trim();
         String price = etPrice.getText().toString().trim();
         String rating = etRating.getText().toString().trim();
 
@@ -136,11 +135,11 @@ public class AddTripActivity extends AppCompatActivity {
         //address validation
         if (address.isEmpty()) {
             location_lyot.setError("Address is required");
-            etAddress.requestFocus();
+            etLocation.requestFocus();
             isValid = false;
         } else if (address.length() < 3) {
             location_lyot.setError("Address must be at least 3 characters");
-            etAddress.requestFocus();
+            etLocation.requestFocus();
             isValid = false;
         }
         //price validation
@@ -261,7 +260,7 @@ public class AddTripActivity extends AppCompatActivity {
         if (resultCode==RESULT_OK && requestCode== IMAGE_PICK_CODE){
             //a עידכון תכונת כתובת התמונה
             toUploadimageUri = data.getData();//קבלת כתובת התמונה הנתונים שניבחרו
-            imgBtn.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
+            ivTripImage.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
         }
     }
 //upload: 6
