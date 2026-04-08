@@ -12,8 +12,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -47,6 +51,14 @@ public class AddTripActivity extends AppCompatActivity {
     private ChipGroup categoryChipGroup, vibesChipGroup;
     private Button btnSubmit;
     private TextInputLayout title_lyot, location_lyot, price_lyot, rating_lyot;
+
+    // مُشغّلات لطلب الأذونات
+    private ActivityResultLauncher<String> requestReadMediaImagesPermission;
+    private ActivityResultLauncher<String> requestReadMediaVideoPermission;
+    private ActivityResultLauncher<String> requestReadExternalStoragePermission;
+
+    private Uri selectedImageUri;//صفة لحفظ عنوان الصورة بعد اختيارها
+    private ActivityResultLauncher<String> pickImage;// ‏كائن لطلب الصورة من الهاتف
 
 //     private static final String PREF_NAME = "Trips data";
 //    private static final String KEY_TITLE = "title";
@@ -85,17 +97,67 @@ public class AddTripActivity extends AppCompatActivity {
         price_lyot = findViewById(R.id.price_lyot);
         rating_lyot = findViewById(R.id.rating_lyot);
 
-//upload: 3
-        imgBtn=findViewById(R.id.imageCardView);
-        imgBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //upload: 8
-                checkPermission();
+// تسجيل مُشغّل لطلب إذن READ_MEDIA_IMAGES
+        requestReadMediaImagesPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
 
+                Toast.makeText(this, "تم منح إذن قراءة الصور", Toast.LENGTH_SHORT).show();
+                // يمكنك الآن المتابعة بالعملية التي تتطلب هذا الإذن
+            } else {
+
+                Toast.makeText(this, "تم رفض إذن قراءة الصور", Toast.LENGTH_SHORT).show();
+                // التعامل مع حالة رفض الإذن
             }
         });
 
+
+// تسجيل مُشغّل لطلب إذن READ_MEDIA_VIDEO
+        requestReadMediaVideoPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+
+                Toast.makeText(this, "تم منح إذن قراءة الفيديو", Toast.LENGTH_SHORT).show();
+                // يمكنك الآن المتابعة بالعملية التي تتطلب هذا الإذن
+            } else {
+
+                Toast.makeText(this, "تم رفض إذن قراءة الفيديو", Toast.LENGTH_SHORT).show();
+                // التعامل مع حالة رفض الإذن
+            }
+        });
+
+
+// تسجيل مُشغّل لطلب إذن READ_EXTERNAL_STORAGE
+        requestReadExternalStoragePermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+
+                Toast.makeText(this, "تم منح إذن قراءة التخزين الخارجي", Toast.LENGTH_SHORT).show();
+                // يمكنك الآن المتابعة بالعملية التي تتطلب هذا الإذن
+            } else {
+
+                Toast.makeText(this, "تم رفض إذن قراءة التخزين الخارجي", Toast.LENGTH_SHORT).show();
+                // التعامل مع حالة رفض الإذن
+            }
+        });
+//استدعاء دالة الفحص (سيتم تطبيقها لاحقا)
+        checkAndRequestPermissions();
+
+// Initialize the ActivityResultLauncher for picking images
+        pickImage = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+                if (result != null) {
+                    selectedImageUri = result;
+                    ivTripImage.setImageURI(result);
+                    ivTripImage.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+       ivTripImage.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               pickImage.launch("image/*");
+           }
+       });
 
 
         btnSubmit = findViewById(R.id.btnSubmit);
@@ -239,75 +301,9 @@ public class AddTripActivity extends AppCompatActivity {
         return isValid;
     }
 
-    private void pickImageFromGallery(){
-        //implicit intent (מרומז) to pick image
-        Intent intent=new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent,IMAGE_PICK_CODE);//הפעלתה האינטנט עם קוד הבקשה
-    }
-
-//upload: 5:handle result of picked images
-    /**
-     *
-     * @param requestCode מספר הקשה
-     * @param resultCode תוצאה הבקשה (אם נבחר משהו או בוטלה)
-     * @param data הנתונים שנבחרו
-     */
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        //אם נבחר משהו ואם זה קוד בקשת התמונה
-        if (resultCode==RESULT_OK && requestCode== IMAGE_PICK_CODE){
-            //a עידכון תכונת כתובת התמונה
-            toUploadimageUri = data.getData();//קבלת כתובת התמונה הנתונים שניבחרו
-            ivTripImage.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
-        }
-    }
-//upload: 6
-    /**
-     * בדיקה האם יש הרשאה לגישה לקבצים בטלפון
-     */
-    private void checkPermission()
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//בדיקת גרסאות
-            //בדיקה אם ההשאה לא אושרה בעבר
-            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                //רשימת ההרשאות שרוצים לבקש אישור
-                String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
-                //בקשת אישור ההשאות (שולחים קוד הבקשה)
-                //התשובה תתקבל בפעולה onRequestPermissionsResult
-                requestPermissions(permissions, PERMISSION_CODE);
-            } else {
-                //permission already granted אם יש הרשאה מקודם אז מפעילים בחירת תמונה מהטלפון
-                pickImageFromGallery();
-            }
-        }
-        else {//אם גרסה ישנה ולא צריך קבלת אישור
-            pickImageFromGallery();
-        }
-    }
 
 
-//upload: 7
-    /**
-     * @param requestCode The request code passed in מספר בקשת ההרשאה
-     * @param permissions The requested permissions. Never null. רשימת ההרשאות לאישור
-     * @param grantResults The grant results for the corresponding permissions תוצאה עבור כל הרשאה
-     *   PERMISSION_GRANTED אושר or PERMISSION_DENIED נדחה . Never null.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_CODE) {//בדיקת קוד בקשת ההרשאה
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //permission was granted אם יש אישור
-                pickImageFromGallery();
-            } else {
-                //permission was denied אם אין אישור
-                Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+
 
     public void saveTrips(Trips trips) {// الحصول على مرجع إلى عقدة "users" في قاعدة البيانات
 
@@ -342,6 +338,50 @@ public class AddTripActivity extends AppCompatActivity {
 
     }
 
+    // دالة لفحص وطلب الأذونات
+    private void checkAndRequestPermissions() {
+        // فحص وطلب إذن READ_MEDIA_IMAGES (للإصدارات الحديثة)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // أندرويد 13+
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_IMAGES)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestReadMediaImagesPermission.launch(android.Manifest.permission.READ_MEDIA_IMAGES);
+            } else {
+
+                Toast.makeText(this, "إذن قراءة الصور ممنوح بالفعل", Toast.LENGTH_SHORT).show();
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // أندرويد 10 و 11 و 12// على هذه الإصدارات، READ_EXTERNAL_STORAGE له سلوك مختلف
+            // إذا كنت تستخدم Scoped Storage بشكل صحيح، قد لا تحتاج إلى هذا الإذن
+            // ولكن إذا كنت تحتاج إلى الوصول إلى جميع الصور، فقد تحتاج إلى READ_EXTERNAL_STORAGE
+            // في هذا المثال، سنفحص READ_EXTERNAL_STORAGE للإصدارات الأقدم من 13
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestReadExternalStoragePermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+            } else {
+
+                Toast.makeText(this, "إذن قراءة التخزين ممنوح بالفعل (للإصدارات الأقدم)", Toast.LENGTH_SHORT).show();
+            }
+        } else { // أندرويد 9 والإصدارات الأقدم
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestReadExternalStoragePermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+            } else {
+
+                Toast.makeText(this, "إذن قراءة التخزين ممنوح بالفعل (للإصدارات الأقدم)", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+        // فحص وطلب إذن READ_MEDIA_VIDEO (للإصدارات الحديثة)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // أندرويد 13+
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_VIDEO)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestReadMediaVideoPermission.launch(android.Manifest.permission.READ_MEDIA_VIDEO);
+            } else {
+
+                Toast.makeText(this, "إذن قراءة الفيديو ممنوح بالفعل", Toast.LENGTH_SHORT).show();
+            }
+        }// ملاحظة: إذن INTERNET لا يحتاج إلى فحص أو
+    }
 
 
 
