@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">FinalProjectSaleh</string>
-    
+
     <!-- Image Descriptions -->
     <string name="trip_image_desc">Trip image</string>
-    
+
     <!-- Site Activity -->
     <string name="site_image">Site image</string>
     <string name="open_now">Open now</string>
@@ -19,7 +19,7 @@
     <string name="contact">Contact</string>
     <string name="location">Location</string>
     <string name="rating_label">Rating</string>
-    
+
     <string name="rating_error_invalid">Please enter a valid rating between 0 and 5</string>
     <string name="rating_hint_desc">Enter a rating between 0.0 and 5.0</string>
     <string name="clear_rating">Clear rating</string>
@@ -91,7 +91,7 @@
     <string name="invalid_rating">Rating must be between 0 and 5</string>
     <string name="invalid_price">Please enter a valid price</string>
     <string name="invalid_url">Please enter a valid URL</string>
-    
+
     <!-- Status Options -->
     <string-array name="status_options">
         <item>Open</item>
@@ -100,7 +100,7 @@
         <item>Completed</item>
         <item>Cancelled</item>
     </string-array>
-    
+
     <!-- Category Options -->
     <string-array name="category_options">
         <item>Adventure</item>
@@ -119,7 +119,7 @@
 
     <!-- Button Text -->
     <string name="view_button_text">View</string>
-    
+
     <!-- Site Activity Additional Strings -->
     <string name="add_to_favorites">Add to favorites</string>
     <string name="favorite">Favorite</string>
@@ -160,75 +160,75 @@
     <string name="outdoors">Outdoors</string>
     <string name="historic">Historic</string>
     <string name="scenic">Scenic</string>
-    
+
     <!-- New Category Strings -->
     <string name="food">Food</string>
     <string name="shopping">Shopping</string>
     <string name="relaxing">Relaxing</string>
     <string name="historic_category">Historic</string>
     <string name="religious">Religious</string>
-    
+
     <!-- New Vibe Strings -->
     <string name="family_friendly">Family Friendly</string>
     <string name="romantic">Romantic</string>
     <string name="free_entry">Free Entry</string>
     <string name="hidden_gem">Hidden Gem</string>
-    
+
     <!-- Validation Messages -->
     <string name="error_title_required">Please enter a title</string>
     <string name="error_location_required">Please enter a location</string>
     <string name="error_category_required">Please select a category</string>
     <string name="error_price_required">Please enter a valid price</string>
     <string name="error_image_required">Please add an image</string>
-    
+
     <!-- Success Message -->
     <string name="trip_added_success">Trip added successfully!</string>
-    
+
     <!-- Placeholder Text -->
     <string name="hint_enter_title">Enter trip title</string>
     <string name="hint_enter_location">Enter location</string>
     <string name="hint_enter_price">0.00</string>
-    
+
     <!-- Accessibility -->
     <string name="a11y_trip_image">Trip image</string>
     <string name="a11y_title_field">Trip title field</string>
     <string name="a11y_location_field">Location field</string>
     <string name="a11y_price_field">Price field</string>
     <string name="a11y_rating_bar">Rate this trip</string>
-    
+
     <!-- Form Sections -->
     <string name="section_trip_details">Trip Details</string>
     <string name="section_location">Location</string>
     <string name="section_pricing">Pricing</string>
     <string name="section_additional_info">Additional Information</string>
-    
+
     <!-- Date/Time -->
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
     <string name="select_date">Select Date</string>
     <string name="select_time">Select Time</string>
-    
+
     <!-- Trip Capacity -->
     <string name="trip_capacity">Group Size</string>
     <string name="number_of_people">Number of People</string>
     <string name="trip_notes">Additional Notes</string>
     <string name="trip_notes_hint">Any special requirements or notes about the trip</string>
-    
+
     <!-- Buttons -->
     <string name="btn_take_photo">Take Photo</string>
     <string name="btn_choose_from_gallery">Choose from Gallery</string>
     <string name="btn_remove_photo">Remove Photo</string>
-    
+
     <!-- Confirmation Dialog -->
     <string name="confirm_discard_title">Discard Changes?</string>
     <string name="confirm_discard_message">Are you sure you want to discard all changes?</string>
     <string name="discard">Discard</string>
     <string name="keep_editing">Keep Editing</string>
-    
+
     <!-- Required Field Indicator -->
     <string name="required_field">*</string>
     <string name="required_field_note">* Required fields</string>
-    
+
     <!-- Trip Type -->
     <string name="trip_type">Trip Type</string>
     <string-array name="trip_types">
@@ -239,7 +239,7 @@
         <item>Business</item>
         <item>Group</item>
     </string-array>
-    
+
     <!-- Budget Level -->
     <string name="budget_level">Budget Level</string>
     <string-array name="budget_levels">
@@ -247,7 +247,7 @@
         <item>Mid-range</item>
         <item>Luxury</item>
     </string-array>
-    
+
     <!-- Trip Status -->
     <string name="trip_status">Trip Status</string>
     <string-array name="trip_statuses">
@@ -257,57 +257,57 @@
         <item>Completed</item>
         <item>Cancelled</item>
     </string-array>
-    
+
     <!-- Weather -->
     <string name="weather">Weather</string>
     <string name="check_weather">Check Weather</string>
     <string name="weather_loading">Loading weather information…</string>
-    
+
     <!-- Map -->
     <string name="select_on_map">Select on Map</string>
     <string name="location_permission_required">Location permission is required to select a location on the map</string>
-    
+
     <!-- Sharing -->
     <string name="share_trip">Share Trip</string>
     <string name="share_trip_subject">Check out my trip to %1$s</string>
 
-    
+
     <!-- Trip Description -->
     <string name="trip_description">Description</string>
     <string name="trip_description_hint">Tell us about your trip (optional)</string>
-    
+
     <!-- Tags -->
     <string name="add_tags">Add Tags</string>
     <string name="tags_hint">Press enter to add a tag</string>
-    
+
     <!-- Privacy -->
     <string name="privacy_settings">Privacy Settings</string>
     <string name="make_public">Make this trip public</string>
     <string name="description_public_trip_">Public trips can be seen by other users</string>
-    
+
     <!-- Reminders -->
     <string name="set_reminder">Set Reminder</string>
     <string name="reminder_set">Reminder set for %1$s</string>
-    
+
     <!-- Attachments -->
     <string name="add_attachments">Add Attachments</string>
     <string name="attachments">Attachments</string>
     <string name="add_photos">Add Photos</string>
     <string name="add_documents">Add Documents</string>
     <string name="add_links">Add Links</string>
-    
+
     <!-- Collaborators -->
     <string name="add_collaborators">Add Travel Buddies</string>
     <string name="collaborators">Travel Buddies</string>
     <string name="invite_by_email">Invite by Email</string>
     <string name="invite_message">Join me on my trip to %1$s!</string>
-    
+
     <!-- Trip Itinerary -->
     <string name="itinerary">Itinerary</string>
     <string name="add_to_itinerary">Add to Itinerary</string>
     <string name="day">Day %1$d</string>
     <string name="add_activity">Add Activity</string>
-    
+
     <!-- Expenses -->
     <string name="expenses">Expenses</string>
     <string name="add_expense">Add Expense</string>
@@ -317,7 +317,7 @@
     <string name="expense_date">Date</string>
     <string name="expense_notes">Notes</string>
     <string name="total_expenses">Total: %1$s</string>
-    
+
     <!-- Packing List -->
     <string name="packing_list">Packing List</string>
     <string name="add_item">Add Item</string>
@@ -330,7 +330,7 @@
     <string name="packing_electronics">Electronics</string>
     <string name="packing_documents">Documents</string>
     <string name="packing_other">Other</string>
-    
+
     <!-- Trip Stats -->
     <string name="trip_stats">Trip Statistics</string>
     <string name="days_until_trip">%1$d days until trip</string>
@@ -338,12 +338,12 @@
     <string name="total_budget">Total Budget</string>
     <string name="expenses_so_far">Expenses So Far</string>
     <string name="remaining_budget">Remaining Budget</string>
-    
+
     <!-- Trip Photos -->
     <string name="trip_photos">Trip Photos</string>
     <string name="no_photos_yet">No photos added yet</string>
     <string name="add_first_photo">Add your first photo</string>
-    
+
     <!-- Trip Reviews -->
     <string name="trip_reviews">Reviews</string>
     <string name="write_review">Write a Review</string>
@@ -353,7 +353,7 @@
     <string name="submit_review">Submit Review</string>
     <string name="no_reviews_yet">No reviews yet</string>
     <string name="be_the_first_to_review">Be the first to review</string>
-    
+
     <!-- Trip Tips -->
     <string name="trip_tips">Travel Tips</string>
     <string name="add_tip">Add a Tip</string>
@@ -361,7 +361,7 @@
     <string name="tip_description">Tip Description</string>
     <string name="save_tip">Save Tip</string>
     <string name="no_tips_yet">No tips added yet</string>
-    
+
     <!-- Trip Checklist -->
     <string name="trip_checklist">Pre-Trip Checklist</string>
     <string name="checklist_item">Checklist Item</string>
@@ -372,14 +372,14 @@
     <string name="checklist_category_health">Health &amp; Safety</string>
     <string name="checklist_category_finance">Finance</string>
     <string name="checklist_category_other">Other</string>
-    
+
     <!-- Trip Map -->
     <string name="trip_map">Trip Map</string>
     <string name="view_full_map">View Full Map</string>
     <string name="add_location">Add Location</string>
     <string name="saved_locations">Saved Locations</string>
     <string name="no_locations_added">No locations added yet</string>
-    
+
     <!-- Trip Notes -->
     <string name="trip_notes_title">Trip Notes</string>
     <string name="add_note">Add Note</string>
@@ -387,7 +387,7 @@
     <string name="note_content">Note Content</string>
     <string name="save_note">Save Note</string>
     <string name="no_notes_yet">No notes added yet</string>
-    
+
     <!-- Trip Expenses -->
     <string name="expense_categories">Expense Categories</string>
     <string name="category_food">Food &amp; Drinks</string>
@@ -396,7 +396,7 @@
     <string name="category_activities">Activities</string>
     <string name="category_shopping">Shopping</string>
     <string name="category_other">Other</string>
-    
+
     <!-- Trip Budget -->
     <string name="set_budget">Set Budget</string>
     <string name="daily_budget">Daily Budget</string>
@@ -404,7 +404,7 @@
     <string name="budget_remaining">%1$s remaining</string>
     <string name="budget_exceeded">%1$s over budget</string>
     <string name="budget_on_track">On track</string>
-    
+
     <!-- Trip Sharing -->
     <string name="share_options">Share Options</string>
     <string name="generate_link">Generate Shareable Link</string>
@@ -412,7 +412,7 @@
     <string name="share_via_email">Share via Email</string>
     <string name="share_via_whatsapp">Share via WhatsApp</string>
     <string name="share_via_other">Share via…</string>
-    
+
     <!-- Trip Export -->
     <string name="export_trip">Export Trip</string>
     <string name="export_as_pdf">Export as PDF</string>
@@ -420,13 +420,13 @@
     <string name="export_as_text">Export as Text</string>
     <string name="export_successful">Export successful</string>
     <string name="export_failed">Export failed. Please try again.</string>
-    
+
     <!-- Trip Templates -->
     <string name="save_as_template">Save as Template</string>
     <string name="use_template">Use Template</string>
     <string name="template_name">Template Name</string>
     <string name="template_saved">Template saved successfully</string>
-    
+
     <!-- Trip Collaboration -->
     <string name="collaboration_settings">Collaboration Settings</string>
     <string name="allow_editing">Allow Editing</string>
@@ -435,19 +435,19 @@
     <string name="collaborator_email">Collaborator Email</string>
     <string name="send_invite">Send Invite</string>
     <string name="invite_sent">Invitation sent</string>
-    
+
     <!-- Trip Privacy -->
     <string name="privacy">Privacy</string>
     <string name="who_can_public_description">Anyone with the link can view</string>
     <string name="private_description">Only you can view</string>
-    
+
     <!-- Trip Notifications -->
     <string name="notifications">Notifications</string>
     <string name="email_notifications">Email Notifications</string>
     <string name="push_notifications">Push Notifications</string>
     <string name="trip_reminders">Trip Reminders</string>
     <string name="expense_alerts">Expense Alerts</string>
-    
+
     <!-- Trip Backup -->
     <string name="backup">Backup &amp; Sync</string>
     <string name="backup_now">Backup Now</string>
@@ -455,13 +455,13 @@
     <string name="auto_backup">Auto Backup</string>
     <string name="backup_to_cloud">Backup to Cloud</string>
     <string name="restore_from_backup">Restore from Backup</string>
-    
+
     <!-- Rating Input -->
     <string name="rating_hint">e.g., 4.5</string>
     <string name="rating_helper">Enter a number between 0 and 5</string>
     <string name="rating_clear">Clear rating</string>
     <string name="rating_invalid">Please enter a valid rating (0-5)</string>
-    
+
     <!-- Trip Settings -->
     <string name="trip_settings">Trip Settings</string>
     <string name="currency">Currency</string>
@@ -469,20 +469,20 @@
     <string name="temperature_unit">Temperature Unit</string>
     <string name="date_format">Date Format</string>
     <string name="time_format">Time Format</string>
-    
+
     <!-- Trip Help -->
     <string name="help">Help &amp; Support</string>
     <string name="faq">FAQs</string>
     <string name="contact_support">Contact Support</string>
     <string name="report_issue">Report an Issue</string>
     <string name="rate_app">Rate the App</string>
-    
+
     <!-- Trip Deletion -->
     <string name="delete_trip">Delete Trip</string>
     <string name="delete_confirmation">Are you sure you want to delete this trip? This action cannot be undone.</string>
     <string name="delete">Delete</string>
     <string name="trip_deleted">Trip deleted successfully</string>
-    
+
     <!-- Star Rating -->
     <string name="rate_your_experience">Rate your experience</string>
     <string name="rate_1_star">Rate 1 star out of 5</string>

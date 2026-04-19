@@ -40,8 +40,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/trip_image_desc"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:src="@drawable/ic_add_photo"
+                android:padding="48dp"
                 app:tint="?attr/colorPrimary" />
         </com.google.android.material.card.MaterialCardView>
 

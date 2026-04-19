@@ -213,15 +213,15 @@ public class AddTripActivity extends AppCompatActivity {
         // Inside your validat() method, add this logic:
 
 // --- Chip Group Validation ---
-        int checkedCategoryId = categoryChipGroup.getCheckedChipId();
-        if (checkedCategoryId == View.NO_ID) { // NO_ID means no chip is selected
+        List<Integer> checkedChipIds = categoryChipGroup.getCheckedChipIds();
+        if (checkedChipIds.size()==0) { // NO_ID means no chip is selected
             // You don't have a TextView for this error, so we'll use a Toast
             Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
 
-        int checkedVibeId = vibesChipGroup.getCheckedChipId();
-        if (checkedVibeId == View.NO_ID) {
+        List<Integer> checkedChipIds1 = vibesChipGroup.getCheckedChipIds();
+        if (checkedChipIds1.size()==0) {
             Toast.makeText(this, "Please select a vibe", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
@@ -254,13 +254,14 @@ public class AddTripActivity extends AppCompatActivity {
         // Validate inputs
 
         // --- Get Chip Text ---
-        int categoryId = categoryChipGroup.getCheckedChipId();
-        Chip selectedCategoryChip = findViewById(categoryId);
-        String categoryStr = selectedCategoryChip.getText().toString();
+//        int categoryId = categoryChipGroup.getCheckedChipId();
+//        List<Integer> checkedChipIds = categoryChipGroup.getCheckedChipIds();
+//        Chip selectedCategoryChip = findViewById(categoryId);
+//        String categoryStr = selectedCategoryChip.getText().toString();
 
-        int vibeId = vibesChipGroup.getCheckedChipId();
-        Chip selectedVibeChip = findViewById(vibeId);
-        String vibeStr = selectedVibeChip.getText().toString();
+//        int vibeId = vibesChipGroup.getCheckedChipId();
+//        Chip selectedVibeChip = findViewById(vibeId);
+//        String vibeStr = selectedVibeChip.getText().toString();
 
         // Get all selected chips values from vibesChipGroup
         List<String> selectedVibes = new ArrayList<>();
@@ -271,6 +272,15 @@ public class AddTripActivity extends AppCompatActivity {
             }
         }
         String vibesStr = TextUtils.join(", ", selectedVibes);
+        // Get all selected chips values from vibesChipGroup
+        List<String> selectegroups = new ArrayList<>();
+        for (int i = 0; i < categoryChipGroup.getChildCount(); i++) {
+            Chip chip = (Chip) categoryChipGroup.getChildAt(i);
+            if (chip.isChecked()) {
+                selectegroups.add(chip.getText().toString());
+            }
+        }
+        String groupStr = TextUtils.join(", ", selectedVibes);
 
 
         // Save trip to database
@@ -292,8 +302,8 @@ public class AddTripActivity extends AppCompatActivity {
             trips.setAddress(address);
             trips.setPrice(Double.parseDouble(price));
             trips.setRating(Double.parseDouble(rating));
-            trips.setCategory(categoryStr);
-            trips.setVibes(vibeStr);
+            trips.setCategory(groupStr);
+            trips.setVibes(vibesStr);
             trips.setTitle(title);
             saveTrips(trips);
 

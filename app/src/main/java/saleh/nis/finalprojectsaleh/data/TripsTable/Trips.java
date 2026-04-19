@@ -5,9 +5,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.google.android.material.chip.Chip;
-import com.google.android.material.imageview.ShapeableImageView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,10 +15,10 @@ public class Trips {
     public long keyid;
     @ColumnInfo
     public String title;
-    public String Category;
-    public double Rating ;
-    public double Price;
-    public String Address;
+    public String category;
+    public double rating;
+    public double price;
+    public String address;
    public String Status;
     //public String Address;
     public String attractionimage;
@@ -37,11 +34,11 @@ public class Trips {
         return "Trips{" +
                 "keyid=" + keyid +
                 ", name=" + title +
-                ", Category=" + Category +
-                ", Rating=" + Rating +
-                ", Price=" + Price +
+                ", Category=" + category +
+                ", Rating=" + rating +
+                ", Price=" + price +
                 ", Status='" + Status + '\'' +
-                ", Addres='" + Address+ '\''+
+                ", Addres='" + address + '\''+
                 ", Vibes='" + vibes + '\'' +
                 ", attractionimage='" + attractionimage + '\'' +
                 '}';
@@ -60,16 +57,16 @@ public class Trips {
     }
 
     public double getRating() {
-        return Rating;
+        return rating;
     }
     public void setRating(double rating) {
-        Rating = rating;
+        this.rating = rating;
     }
     public double getPrice() {
-        return Price;
+        return price;
     }
     public void setPrice(double price) {
-        Price = price;
+        this.price = price;
     }
     public String getStatus() {
         return Status;
@@ -79,10 +76,10 @@ public class Trips {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
 
@@ -152,11 +149,11 @@ public class Trips {
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(String category) {
-        Category = category;
+        this.category = category;
     }
 
     public String getAttractionimage() {
@@ -178,4 +175,6 @@ public class Trips {
     public String getTripsKey() {
         return tripsKey;
     }
+
+
 }
