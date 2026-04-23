@@ -11,6 +11,32 @@ public class MyUser {
     /**
      * فئة تمثل المستعمل
      */
+    
+    // Role enum for user types
+    public enum Role {
+        ADMIN("admin"),
+        CUSTOMER("customer");
+        
+        private final String value;
+        
+        Role(String value) {
+            this.value = value;
+        }
+        
+        public String getValue() {
+            return value;
+        }
+        
+        public static Role fromValue(String value) {
+            for (Role role : Role.values()) {
+                if (role.value.equals(value)) {
+                    return role;
+                }
+            }
+            return CUSTOMER; // default fallback
+        }
+    }
+    
     @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
     public long keyid;
     @ColumnInfo(name = "full_Name")//اعطاء اسم جديد للعامود-الصفة في الجدول
@@ -18,6 +44,8 @@ public class MyUser {
     public String email;//بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
     public String phone;
     public String passw;
+    @ColumnInfo(name = "role")
+    public Role role;
 
     @Override
     public String toString() {
@@ -27,6 +55,7 @@ public class MyUser {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", passw='" + passw + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 
@@ -68,6 +97,14 @@ public class MyUser {
 
     public void setPassw(String passw) {
         this.passw = passw;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
 

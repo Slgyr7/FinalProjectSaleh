@@ -9,6 +9,8 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,8 @@ public class Register extends AppCompatActivity {
     private Button createAccountButton;
     private TextInputEditText usernameEditText, emailEditText, passwordEditText, phoneEditText;
     private TextInputLayout usernameLayout, emailLayout, passwordLayout, phoneLayout;
+    private RadioGroup roleRadioGroup;
+    private RadioButton radioCustomer, radioOrganization;
     
     // SharedPreferences for local storage
     private static final String PREF_NAME = "UserData";
@@ -64,6 +68,11 @@ public class Register extends AppCompatActivity {
         emailLayout = findViewById(R.id.emailLayout);
         passwordLayout = findViewById(R.id.passwordLayout);
         phoneLayout = findViewById(R.id.phoneLayout);
+        
+        // Initialize Role RadioGroup
+        roleRadioGroup = findViewById(R.id.roleRadioGroup);
+        radioCustomer = findViewById(R.id.radioCustomer);
+        radioOrganization = findViewById(R.id.radioOrganization);
         
         // Back Button Functionality
         backButton = findViewById(R.id.back_btn);
@@ -116,7 +125,16 @@ public class Register extends AppCompatActivity {
                             String emailStr = emailEditText.getText().toString().trim();
                             String passwordStr = passwordEditText.getText().toString().trim();
                             String phoneStr = phoneEditText.getText().toString().trim();
-                            if (saveUserData(usernameStr, emailStr, passwordStr, phoneStr)) {
+                            
+                            // Get selected role
+                            String selectedRole;
+                            if (radioOrganization.isChecked()) {
+                                selectedRole = "admin";
+                            } else {
+                                selectedRole = "customer";
+                            }
+                            
+                            if (saveUserData(usernameStr, emailStr, passwordStr, phoneStr, selectedRole)) {
                                 // Registration successful
                                 Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
@@ -190,7 +208,7 @@ public class Register extends AppCompatActivity {
         return isValid;
     }
 
-    private boolean saveUserData(String username, String email, String password, String phone) {
+    private boolean saveUserData(String username, String email, String password, String phone, String role) {
         try {
             // Get SharedPreferences editor
             SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -201,6 +219,7 @@ public class Register extends AppCompatActivity {
             editor.putString(KEY_EMAIL, email);
             editor.putString(KEY_PASSWORD, password); // In a real app, you should hash the password
             editor.putString(KEY_PHONE, phone);
+            editor.putString("role", role); // Store role
 
             // Apply changes
             editor.apply();
