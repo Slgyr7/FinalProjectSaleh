@@ -9,8 +9,8 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,209 +25,153 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
 
+import saleh.nis.finalprojectsaleh.data.AppDataBase;
+import saleh.nis.finalprojectsaleh.data.UserProfileTable.MyUser;
+
 public class Register extends AppCompatActivity {
 
-    // Declare the views for the buttons and input fields
     private ImageView backButton;
     private Button createAccountButton;
     private TextInputEditText usernameEditText, emailEditText, passwordEditText, phoneEditText;
     private TextInputLayout usernameLayout, emailLayout, passwordLayout, phoneLayout;
     private RadioGroup roleRadioGroup;
     private RadioButton radioCustomer, radioOrganization;
-    
-    // SharedPreferences for local storage
-    private static final String PREF_NAME = "UserData";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_PHONE = "phone";
+    private FirebaseAuth mAuth;
+
+    // Use "UserPrefs" as requested by the user
+    private static final String PREF_NAME = "UserPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // This listener handles the edge-to-edge display
+        mAuth = FirebaseAuth.getInstance();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.conlayr), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Initialize input fields and layouts
+        // Initialize UI components
         usernameEditText = findViewById(R.id.ET_username);
         emailEditText = findViewById(R.id.ET_email);
         passwordEditText = findViewById(R.id.ET_password);
         phoneEditText = findViewById(R.id.ET_phone);
-        
-        // Initialize TextInputLayouts
         usernameLayout = findViewById(R.id.usernameLayout);
         emailLayout = findViewById(R.id.emailLayout);
         passwordLayout = findViewById(R.id.passwordLayout);
         phoneLayout = findViewById(R.id.phoneLayout);
-        
-        // Initialize Role RadioGroup
         roleRadioGroup = findViewById(R.id.roleRadioGroup);
         radioCustomer = findViewById(R.id.radioCustomer);
         radioOrganization = findViewById(R.id.radioOrganization);
-        
-        // Back Button Functionality
         backButton = findViewById(R.id.back_btn);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate back to the 'welcome' activity
-                Intent intent = new Intent(Register.this, welcome.class);
-                startActivity(intent);
-                finish();
-            }
+        createAccountButton = findViewById(R.id.btn_create);
+
+        backButton.setOnClickListener(v -> {
+            startActivity(new Intent(Register.this, welcome.class));
+            finish();
         });
 
-        // Create Account Button Functionality
-        createAccountButton = findViewById(R.id.btn_create);
-        createAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Reset errors
-                usernameLayout.setError(null);
-                emailLayout.setError(null);
-                passwordLayout.setError(null);
-                phoneLayout.setError(null);
-                
-                // Get input values
-                String usernameStr = usernameEditText.getText().toString().trim();
-                String emailStr = emailEditText.getText().toString().trim();
-                String passwordStr = passwordEditText.getText().toString().trim();
-                String phoneStr = phoneEditText.getText().toString().trim();
+        createAccountButton.setOnClickListener(v -> {
+            String username = usernameEditText.getText().toString().trim();
+            String email = emailEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
+            String phone = phoneEditText.getText().toString().trim();
 
-                // Validate inputs
-                if (validateInputs(usernameStr, emailStr, passwordStr, phoneStr)) {
-                    signUpUser(emailStr, passwordStr);
-
-                }
+            if (validateInputs(username, email, password, phone)) {
+                signUpUser(username, email, password, phone);
             }
         });
     }
 
-    private void signUpUser(String email, String password) {
-        // Create user with Firebase Authentication
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Save user data room db
-                            // Get input values
-                            String usernameStr = usernameEditText.getText().toString().trim();
-                            String emailStr = emailEditText.getText().toString().trim();
-                            String passwordStr = passwordEditText.getText().toString().trim();
-                            String phoneStr = phoneEditText.getText().toString().trim();
-                            
-                            // Get selected role
-                            String selectedRole;
-                            if (radioOrganization.isChecked()) {
-                                selectedRole = "admin";
-                            } else {
-                                selectedRole = "customer";
-                            }
-                            
-                            if (saveUserData(usernameStr, emailStr, passwordStr, phoneStr, selectedRole)) {
-                                // Registration successful
-                                Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+    private void signUpUser(String username, String email, String password, String phone) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        String uid = mAuth.getCurrentUser().getUid();
+                        
+                        String role = radioOrganization.isChecked() ? MyUser.ROLE_ADMIN : MyUser.ROLE_CUSTOMER;
 
-                                // Navigate to HomeScreen
-                                Intent intent = new Intent(Register.this, HomeScreen.class);
-                                startActivity(intent);
-                                finishAffinity();
-                            } else {
-                                Toast.makeText(Register.this, "Registration  failed. Please try again.", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(Register.this, "Registration SS failed. Please try again.", Toast.LENGTH_SHORT).show();
-                        }
+                        MyUser user = new MyUser();
+                        user.setFullName(username);
+                        user.setEmail(email);
+                        user.setPhone(phone);
+                        user.setPassw(password);
+                        user.setRole(role);
+
+                        FirebaseDatabase.getInstance().getReference("users")
+                                .child(uid)
+                                .setValue(user)
+                                .addOnCompleteListener(dbTask -> {
+                                    if (dbTask.isSuccessful()) {
+                                        // Save to local Room database
+                                        AppDataBase.getDB(getApplicationContext()).getMyUserQuery().insert(user);
+                                        
+                                        // Save to SharedPreferences for auto-login
+                                        saveUserData(username, email, role);
+                                        
+                                        Toast.makeText(Register.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                                        
+                                        // ROLE-BASED ROUTING
+                                        Intent intent;
+                                        if (MyUser.ROLE_ADMIN.equals(role)) {
+                                            intent = new Intent(Register.this, AdminHomeScreen.class);
+                                        } else {
+                                            intent = new Intent(Register.this, HomeScreen.class);
+                                        }
+                                        startActivity(intent);
+                                        finishAffinity();
+                                    } else {
+                                        Toast.makeText(Register.this, "Database Error: " + dbTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(Register.this, "Auth Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-//njk''hg\j/k
+
     private boolean validateInputs(String username, String email, String password, String phone) {
         boolean isValid = true;
-        
-        // Reset errors
         usernameLayout.setError(null);
         emailLayout.setError(null);
         passwordLayout.setError(null);
         phoneLayout.setError(null);
-        
-        // Username validation
+
         if (TextUtils.isEmpty(username)) {
-            usernameLayout.setError("Username is required");
-            usernameEditText.requestFocus();
-            isValid = false;
-        } else if (username.length() < 3) {
-            usernameLayout.setError("Username must be at least 3 characters");
-            usernameEditText.requestFocus();
+            usernameLayout.setError("Username required");
             isValid = false;
         }
-
-        // Email validation
-        if (TextUtils.isEmpty(email)) {
-            emailLayout.setError("Email is required");
-            if (isValid) emailEditText.requestFocus();
-            isValid = false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailLayout.setError("Please enter a valid email");
-            if (isValid) emailEditText.requestFocus();
+        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailLayout.setError("Valid email required");
             isValid = false;
         }
-
-        // Password validation
-        if (TextUtils.isEmpty(password)) {
-            passwordLayout.setError("Password is required");
-            if (isValid) passwordEditText.requestFocus();
-            isValid = false;
-        } else if (password.length() < 6) {
-            passwordLayout.setError("Password must be at least 6 characters");
-            if (isValid) passwordEditText.requestFocus();
+        if (TextUtils.isEmpty(password) || password.length() < 6) {
+            passwordLayout.setError("Password (min 6 chars) required");
             isValid = false;
         }
-
-        // Phone validation
-        if (TextUtils.isEmpty(phone)) {
-            phoneLayout.setError("Phone number is required");
-            if (isValid) phoneEditText.requestFocus();
-            isValid = false;
-        } else if (!Pattern.matches("^[0-9]{10,15}$", phone)) {
-            phoneLayout.setError("Please enter a valid phone number (10-15 digits)");
-            if (isValid) phoneEditText.requestFocus();
+        if (TextUtils.isEmpty(phone) || !Pattern.matches("^[0-9]{10,15}$", phone)) {
+            phoneLayout.setError("Valid phone required");
             isValid = false;
         }
-
         return isValid;
     }
-
-    private boolean saveUserData(String username, String email, String password, String phone, String role) {
-        try {
-            // Get SharedPreferences editor
-            SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            // Store user data
-            editor.putString(KEY_USERNAME, username);
-            editor.putString(KEY_EMAIL, email);
-            editor.putString(KEY_PASSWORD, password); // In a real app, you should hash the password
-            editor.putString(KEY_PHONE, phone);
-            editor.putString("role", role); // Store role
-
-            // Apply changes
-            editor.apply();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    
+    private void saveUserData(String name, String email, String role) {
+        SharedPreferences sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        
+        editor.putString("userName", name);
+        editor.putString("userEmail", email);
+        editor.putString("userRole", role);
+        editor.putBoolean("isLoggedIn", true);
+        
+        editor.apply();
     }
 }
-

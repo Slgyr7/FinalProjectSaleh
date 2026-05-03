@@ -328,7 +328,7 @@ public class AddTripActivity extends AppCompatActivity {
         // حفظ بيانات المستخدم في قاعدة البيانات
         //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص نجاح المطلوب
       //  معالج حدث لفحص هل تم المطلوب من قاعدة البيانات //
-        newtripsRef.setValue(trips).addOnCompleteListener(new OnCompleteListener<Void>() {
+        dbRef.child(trips.getTripsKey()).setValue(trips).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

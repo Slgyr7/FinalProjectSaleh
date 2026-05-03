@@ -55,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/header_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/welcome_message"
-        tools:src="@tools:sample/avatars" />
+        tools:src="@drawable/outline_account_circle_24" />
 
     <!-- Search Bar Section -->
     <com.google.android.material.card.MaterialCardView

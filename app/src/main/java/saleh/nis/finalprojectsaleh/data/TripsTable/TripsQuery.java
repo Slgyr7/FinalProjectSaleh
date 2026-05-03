@@ -19,7 +19,7 @@ public interface TripsQuery {
     @Query("SELECT * FROM Trips WHERE category = :category")
     List<Trips> getTripsByCategory(String category);
 
-    @Query("SELECT * FROM Trips WHERE Status = :status")
+    @Query("SELECT * FROM Trips WHERE status = :status")
     List<Trips> getTripsByStatus(String status);
 
     @Query("SELECT * FROM Trips WHERE rating >= :minRating")

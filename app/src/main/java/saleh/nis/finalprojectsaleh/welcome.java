@@ -23,20 +23,29 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
+
+import saleh.nis.finalprojectsaleh.data.UserProfileTable.MyUser;
 
 public class welcome extends AppCompatActivity {
-    // SharedPreferences keys
-    private static final String PREF_NAME = "UserData";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PASSWORD = "password";
+    // SharedPreferences name (Matching Register.java)
+    private static final String PREF_NAME = "UserPrefs";
     
     // UI elements
     private TextInputEditText emailEditText, passwordEditText;
     private TextInputLayout emailInputLayout, passwordInputLayout;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        mAuth = FirebaseAuth.getInstance();
+        
+        // --- STEP 2: AUTO-LOGIN CHECK ---
+        checkAutoLogin();
+
         setContentView(R.layout.activity_welcome);
 
         // Initialize UI elements
@@ -50,9 +59,29 @@ public class welcome extends AppCompatActivity {
             return insets;
         });
     }
+
+    private void checkAutoLogin() {
+        SharedPreferences sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        boolean isLoggedIn = sp.getBoolean("isLoggedIn", false);
+        
+        if (isLoggedIn) {
+            String role = sp.getString("userRole", "");
+            redirectBasedOnRole(role);
+        }
+    }
+
+    private void redirectBasedOnRole(String role) {
+        Intent intent;
+        if (MyUser.ROLE_ADMIN.equals(role)) {
+            intent = new Intent(welcome.this, AdminHomeScreen.class);
+        } else {
+            intent = new Intent(welcome.this, HomeScreen.class);
+        }
+        startActivity(intent);
+        finish();
+    }
     
     private void initializeViews() {
-        // Find views
         emailEditText = findViewById(R.id.email_edit_text);
         passwordEditText = findViewById(R.id.password_edit_text);
         emailInputLayout = findViewById(R.id.email_input_layout);
@@ -60,105 +89,97 @@ public class welcome extends AppCompatActivity {
     }
     
     private void setupClickListeners() {
-        // Login Button
         Button logInButton = findViewById(R.id.login_button);
-        logInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emailInputLayout.setError(null);
-                passwordInputLayout.setError(null);
-                // Get input values
-                String email = emailEditText.getText().toString().trim();
-                String password = passwordEditText.getText().toString().trim();
+        logInButton.setOnClickListener(v -> {
+            String email = emailEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
 
-                if ( attemptLogin() )
-                {
-                    signInUser(email, password);
-                }
+            if (attemptLogin()) {
+                signInUser(email, password);
             }
         });
 
-        // Sign Up Button
         Button signUpButton = findViewById(R.id.regbtn);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(welcome.this, Register.class);
-                startActivity(intent);
-            }
+        signUpButton.setOnClickListener(v -> {
+            Intent intent = new Intent(welcome.this, Register.class);
+            startActivity(intent);
         });
 
-        // Forgot Password Button
         TextView forgotPasswordButton = findViewById(R.id.forgot_password_button);
-        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(welcome.this, ForgotPassword.class);
-                startActivity(intent);
-            }
+        forgotPasswordButton.setOnClickListener(v -> {
+            Intent intent = new Intent(welcome.this, ForgotPassword.class);
+            startActivity(intent);
         });
     }
 
     private void signInUser(String email, String password) {
-        // Sign in with Firebase Authentication
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in successful
-                            Toast.makeText(welcome.this, "Log in successful!", Toast.LENGTH_SHORT).show();
+        // --- STEP 1: Firebase Authentication ---
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        String uid = mAuth.getCurrentUser().getUid();
 
-                            // Navigate to HomeScreen
-                            Intent intent = new Intent(welcome.this, HomeScreen.class);
-                            startActivity(intent);
-                           finish();//close current activity
-                        } else {
-                            Toast.makeText(welcome.this, "Log in failed. Please try again.", Toast.LENGTH_SHORT).show();
-                        }
+                        // --- FETCH ROLE FROM FIREBASE ---
+                        FirebaseDatabase.getInstance().getReference("users").child(uid).get()
+                                .addOnCompleteListener(dbTask -> {
+                                    if (dbTask.isSuccessful()) {
+                                        DataSnapshot snapshot = dbTask.getResult();
+                                        if (snapshot.exists()) {
+                                            // Extract data
+                                            String name = snapshot.child("fullName").getValue(String.class);
+                                            String userEmail = snapshot.child("email").getValue(String.class);
+                                            String role = snapshot.child("role").getValue(String.class);
+
+                                            // Save locally
+                                            saveUserData(name, userEmail, role);
+
+                                            // Redirect
+                                            Toast.makeText(welcome.this, "Welcome back, " + name, Toast.LENGTH_SHORT).show();
+                                            redirectBasedOnRole(role);
+                                        } else {
+                                            Toast.makeText(welcome.this, "User profile not found in database", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(welcome.this, "Error fetching user profile", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(welcome.this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+    private void saveUserData(String name, String email, String role) {
+        SharedPreferences sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("userName", name);
+        editor.putString("userEmail", email);
+        editor.putString("userRole", role);
+        editor.putBoolean("isLoggedIn", true);
+        editor.apply();
+    }
+
     private boolean attemptLogin() {
         boolean isValid = true;
-        // Reset errors
         emailInputLayout.setError(null);
         passwordInputLayout.setError(null);
 
-
-        
-        // Get values
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        // Validate inputs
         if (TextUtils.isEmpty(email)) {
             emailInputLayout.setError("Email is required");
-            emailEditText.requestFocus();
             isValid = false;
-        }
-        
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailInputLayout.setError("Please enter a valid email");
-            emailEditText.requestFocus();
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailInputLayout.setError("Valid email required");
             isValid = false;
         }
         
         if (TextUtils.isEmpty(password)) {
             passwordInputLayout.setError("Password is required");
-            passwordEditText.requestFocus();
             isValid = false;
         }
         
         return isValid;
-    }
-
-    private boolean validateCredentials(String email, String password) {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        String savedEmail = sharedPreferences.getString(KEY_EMAIL, "");
-        String savedPassword = sharedPreferences.getString(KEY_PASSWORD, "");
-        
-        // In a real app, you would hash the input password and compare with the stored hash
-        return email.equals(savedEmail) && password.equals(savedPassword);
     }
 }

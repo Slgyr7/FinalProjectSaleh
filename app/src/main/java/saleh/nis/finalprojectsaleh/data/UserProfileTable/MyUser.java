@@ -6,46 +6,24 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class MyUser {
-    //Entity = Table =جدول
-//عندما نريد ان نتعامل مع هذه الفئة كجدول معطيات
-    /**
-     * فئة تمثل المستعمل
-     */
-    
-    // Role enum for user types
-    public enum Role {
-        ADMIN("admin"),
-        CUSTOMER("customer");
-        
-        private final String value;
-        
-        Role(String value) {
-            this.value = value;
-        }
-        
-        public String getValue() {
-            return value;
-        }
-        
-        public static Role fromValue(String value) {
-            for (Role role : Role.values()) {
-                if (role.value.equals(value)) {
-                    return role;
-                }
-            }
-            return CUSTOMER; // default fallback
-        }
-    }
-    
-    @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
+    // Role constants for consistency
+    public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_CUSTOMER = "customer";
+
+    @PrimaryKey(autoGenerate = true)
     public long keyid;
-    @ColumnInfo(name = "full_Name")//اعطاء اسم جديد للعامود-الصفة في الجدول
+    
+    @ColumnInfo(name = "full_Name")
     public String fullName;
-    public String email;//بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
+    
+    public String email;
     public String phone;
     public String passw;
-    @ColumnInfo(name = "role")
-    public Role role;
+    public String role; // Role as a String for easier Firebase integration
+
+    // Empty constructor required for Firebase Realtime Database
+    public MyUser() {
+    }
 
     @Override
     public String toString() {
@@ -54,58 +32,26 @@ public class MyUser {
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", passw='" + passw + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }
 
-    public long getKeyid() {
-        return keyid;
-    }
+    // Getters and Setters
+    public long getKeyid() { return keyid; }
+    public void setKeyid(long keyid) { this.keyid = keyid; }
 
-    public void setKeyid(long keyid) {
-        this.keyid = keyid;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public String getFullName() {
-        return fullName;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getPassw() { return passw; }
+    public void setPassw(String passw) { this.passw = passw; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPassw() {
-        return passw;
-    }
-
-    public void setPassw(String passw) {
-        this.passw = passw;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }
-
-

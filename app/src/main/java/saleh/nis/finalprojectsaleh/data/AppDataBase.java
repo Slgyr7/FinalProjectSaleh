@@ -13,26 +13,22 @@ import saleh.nis.finalprojectsaleh.data.TripsTable.TripsQuery;
 import saleh.nis.finalprojectsaleh.data.UserProfileTable.MyUser;
 import saleh.nis.finalprojectsaleh.data.UserProfileTable.MyUserQuery;
 
-@Database(entities = {MyUser.class, site.class , Trips.class}, version =4,exportSchema = false)
+// Updated version to 5 because we changed the MyUser table structure
+@Database(entities = {MyUser.class, site.class , Trips.class}, version = 7, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
     private static AppDataBase dp;
 
     public abstract MyUserQuery getMyUserQuery();
-
     public abstract SiteQuery getSiteQuery();
-
     public abstract TripsQuery getTripsQuery();
 
-
     public static AppDataBase getDB(Context context) {
-
         if (dp == null) {
             dp = Room.databaseBuilder(context, AppDataBase.class, "saleh.DataBase")
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration() // This wipes the DB when version changes - good for development
                     .allowMainThreadQueries()
                     .build();
         }
         return dp;
-
     }
 }
