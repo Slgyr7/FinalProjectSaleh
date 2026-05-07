@@ -3,6 +3,7 @@ package saleh.nis.finalprojectsaleh;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,36 +31,39 @@ import saleh.nis.finalprojectsaleh.data.TripsTable.TripsAdapter;
 public class plan_trips extends AppCompatActivity {
     private ListView lstTrips;
     private TripsAdapter tripsadapterad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_plan_trips);
+
         lstTrips = findViewById(R.id.lv_trips);
         tripsadapterad = new TripsAdapter(this, R.layout.trip_item_layout);
         lstTrips.setAdapter(tripsadapterad);
 
-        // Set up FAB click listener
-        FloatingActionButton fabAddTrip = findViewById(R.id.fab_add_trip);
-        fabAddTrip.setOnClickListener(new View.OnClickListener() {
+        // --- OPEN SITE ACTIVITY ON CLICK ---
+        lstTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                // Navigate to AddTripActivity
-                Intent intent = new Intent(plan_trips.this, AddTripActivity.class);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Trips selectedTrip = tripsadapterad.getItem(position);
+                if (selectedTrip != null) {
+                    Intent intent = new Intent(plan_trips.this, site.class);
+                    // Pass the whole object (it works because we made Trips Serializable)
+                    intent.putExtra("TRIP_DATA", selectedTrip);
+                    startActivity(intent);
+                }
             }
         });
 
-        // Set up back button click listener
-        ImageView backButton = findViewById(R.id.b_btn);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate back to HomeScreen
-                Intent intent = new Intent(plan_trips.this, HomeScreen.class);
-                startActivity(intent);
-            }
+        FloatingActionButton fabAddTrip = findViewById(R.id.fab_add_trip);
+        fabAddTrip.setOnClickListener(v -> {
+            Intent intent = new Intent(plan_trips.this, AddTripActivity.class);
+            startActivity(intent);
         });
+
+        ImageView backButton = findViewById(R.id.b_btn);
+        backButton.setOnClickListener(v -> finish());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -67,44 +71,30 @@ public class plan_trips extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        tripsadapterad.clear();
-        List<Trips> allTrips = AppDataBase.getDB(this).getTripsQuery().getAllTrips();
-        tripsadapterad.addAll(allTrips);
-        tripsadapterad.notifyDataSetChanged();
-
-        //from firebase
         getAllFromFirebase(tripsadapterad);
-
     }
 
     private void getAllFromFirebase(TripsAdapter adapter) {
-        //عنوان قاعدة البيانات
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        // عنوان مجموعة المعطيات داخل قاعدة البيانات
-        DatabaseReference myRef = database.getReference("trips");
-//إضافة listener مما يسبب الإصغاء لكل تغيير حتلنة عرض المعطيات//
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("trips");
         myRef.addValueEventListener(new ValueEventListener() {
-            @Override//دالة معالج حدث تقوم بتلقى نسخة عن كل المعطيات عند أي تغيير
+            @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                adapter.clear();//حذف كل المعطيات بالوسيط
+                adapter.clear();
                 for (DataSnapshot taskSnapshot : snapshot.getChildren()) {
-                    //  استخراج كل المعطيات على وتحويلها لكائن ملائم//
                     Trips trips = taskSnapshot.getValue(Trips.class);
-                    adapter.add(trips);//اضافة كل معطى (كائن) للمنسق
+                    if (trips != null) adapter.add(trips);
                 }
-                adapter.notifyDataSetChanged();//اعلام المنسق بالتغيير
-                Toast.makeText(plan_trips.this, "Data fetched successfully", Toast.LENGTH_SHORT).show();
-
-
+                adapter.notifyDataSetChanged();
             }
-            @Override//بحالة فشل استخراج المعطيات
+
+            @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(plan_trips.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
 }

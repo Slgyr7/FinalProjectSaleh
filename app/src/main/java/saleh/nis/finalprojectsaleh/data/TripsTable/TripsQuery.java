@@ -13,6 +13,9 @@ public interface TripsQuery {
     @Query("SELECT * FROM Trips ORDER BY title DESC")
     List<Trips> getAllTrips();
 
+    @Query("SELECT * FROM Trips WHERE keyid = :id")
+    Trips getTripById(long id);
+
     @Query("SELECT * FROM Trips WHERE title = :name")
     List<Trips> getTripsByName(String name);
 

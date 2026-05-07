@@ -34,10 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_trip_attraction"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <!-- Category and Status -->
             <LinearLayout
@@ -52,9 +52,9 @@
                     style="@style/Widget.Material3.Chip.Assist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipMinHeight="24dp"
-                    app:chipCornerRadius="8dp"
                     android:textStyle="bold"
+                    app:chipCornerRadius="8dp"
+                    app:chipMinHeight="24dp"
                     tools:text="Restaurant" />
 
                 <View
@@ -80,9 +80,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="?attr/colorOnSurface"
                 tools:text="Jaffa Port Food Market" />
 
             <!-- Address and Rating -->
@@ -97,7 +97,7 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:src="@drawable/ic_location"
-                    app:tint="?attr/colorOnSurfaceVariant"/>
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
                 <TextView
                     android:id="@+id/tv_address"
@@ -111,8 +111,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginStart="12dp"
-                    android:src="@drawable/ic_star"
-                    /> <!-- A dedicated color for stars is better -->
+                    android:src="@drawable/ic_star" /> <!-- A dedicated color for stars is better -->
 
                 <TextView
                     android:id="@+id/tv_rating"
@@ -130,31 +129,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                app:chipCornerRadius="8dp"
+                app:chipMinHeight="22dp"
                 app:chipSpacingHorizontal="4dp"
                 app:chipSpacingVertical="2dp"
-                app:singleLine="false"
-                app:chipMinHeight="22dp"
-                app:chipCornerRadius="8dp">
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Romantic"
-                    style="@style/Widget.Material3.Chip.Filter" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Family Friendly"
-                    style="@style/Widget.Material3.Chip.Filter" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Adventure"
-                    style="@style/Widget.Material3.Chip.Filter" />
-
-            </com.google.android.material.chip.ChipGroup>
+                app:singleLine="false" />
 
         </LinearLayout>
 

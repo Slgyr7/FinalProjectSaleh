@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -15,7 +16,7 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
@@ -33,8 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-                app:title="" />
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -48,9 +48,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
 
-            <!-- Site Name and Category -->
+            <!-- Title & Category Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,240 +64,192 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                     android:textColor="@color/black"
-                    tools:text="Site Name" />
+                    android:textStyle="bold" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/categoryChipGroup"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="8dp"
-                    app:singleSelection="true"
-                    app:singleLine="true"
-                    app:chipSpacing="8dp">
+                    android:gravity="center_vertical">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/siteCategory"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        style="@style/Widget.MaterialComponents.Chip.Action"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                        android:textColor="@color/white"
-                        tools:text="Category" />
-                </com.google.android.material.chip.ChipGroup>
+                        android:clickable="false"
+                        android:text="Category" />
 
-            <!-- Rating -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_star"
-                     />
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_star_filled"
+                        android:contentDescription="@string/rating_icon_desc"
+                        app:tint="@color/rating_progress" />
 
-                <TextView
-                    android:id="@+id/siteRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    tools:text="4.5" />
+                    <TextView
+                        android:id="@+id/siteRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- Floating Action Button -->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/fabFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|top"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/add_to_favorites"
-            android:text="@string/favorite"
-            app:icon="@drawable/ic_favorite_border"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="bottom|end"
-            app:iconTint="@android:color/white"
-
-            />
-
-        <!-- Details Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-
-            app:strokeWidth="1dp">
-
+            <!-- Quick Action Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginBottom="16dp"
+                android:contextClickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
-                <!-- Address -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCall"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/call"
+                    app:icon="@drawable/ic_phone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnWebsite"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/website" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDirections"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/directions"
+                    app:icon="@drawable/ic_location" />
+            </LinearLayout>
+
+            <!-- Vibes Tags Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/select_vibes"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgVibes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Detailed Information Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/ic_location_on"
-                        />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <TextView
                         android:id="@+id/siteAddress"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        tools:text="123 Main St, City, Country" />
-                </LinearLayout>
-
-                <!-- Phone -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/ic_phone"
-                         />
+                        android:layout_marginBottom="12dp"
+                        android:drawablePadding="16dp"
+                        android:textColor="@color/black"
+                        app:drawableStartCompat="@drawable/ic_location"
+                        app:drawableTint="?attr/colorPrimary" />
 
                     <TextView
                         android:id="@+id/sitePhone"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:autoLink="phone"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        tools:text="+1 234 567 8900" />
-                </LinearLayout>
-
-                <!-- Website -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="16dp"
-                        />
+                        android:layout_marginBottom="12dp"
+                        android:drawablePadding="16dp"
+                        app:drawableStartCompat="@drawable/ic_phone"
+                        app:drawableTint="?attr/colorPrimary" />
 
                     <TextView
-                        android:id="@+id/siteWebsite"
-                        android:layout_width="0dp"
+                        android:id="@+id/siteHours"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:autoLink="web"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        tools:text="www.example.com" />
-                </LinearLayout>
-
-                <!-- Hours -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/ic_schedule"
-                         />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/siteHours"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                            tools:text="9:00 AM - 10:00 PM" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                            android:text="@string/open_now" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- Cost -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/ic_attach_money"
-                        />
+                        android:layout_marginBottom="12dp"
+                        android:drawablePadding="16dp"
+                        app:drawableStartCompat="@drawable/ic_schedule"
+                        app:drawableTint="?attr/colorPrimary" />
 
                     <TextView
                         android:id="@+id/siteCost"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        tools:text="$$$" />
+                        android:drawablePadding="16dp"
+                        app:drawableStartCompat="@drawable/ic_attach_money"
+                        app:drawableTint="?attr/colorPrimary" />
                 </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
 
-        <!-- Map Preview -->
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:mapType="normal"
-            app:uiZoomControls="false"
-            app:uiZoomGestures="true"
-            app:uiCompass="true"
-            app:uiMapToolbar="true" />
+            <!-- Website Display (Optional text) -->
+            <TextView
+                android:id="@+id/siteWebsite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="12dp"
+                android:autoLink="web"
+                android:visibility="gone" />
 
-        <!-- Description -->
-        <TextView
-            android:id="@+id/siteDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
-            android:lineSpacingExtra="4dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            tools:text="Detailed description about this site. This could include historical information, features, and other relevant details that visitors might find interesting." />
+            <!-- Description Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/description"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/siteDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:lineSpacingExtra="4dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <!-- Corrected to ExtendedFloatingActionButton to match site.java -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/save"
+        app:icon="@drawable/ic_favorite_border"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        android:contentDescription="@string/save" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

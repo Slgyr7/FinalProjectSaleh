@@ -5,12 +5,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
-public class Trips {
+public class Trips implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public long keyid;
     @ColumnInfo
@@ -19,15 +17,18 @@ public class Trips {
     public double rating;
     public double price;
     public String address;
-   public String status;
-    //public String Address;
+    public String status;
     public String attractionimage;
     private String vibes;
-    @Ignore
-   // private List<String> vibes = new ArrayList<>();
 
-    // For Room database compatibility
-    private String vibesString;  // Stores comma-separated vibes for database
+    // Additional fields for Site Activity
+    private String phone;
+    private String website;
+    private String hours;
+    private String description;
+
+    @Ignore
+    private String vibesString;
     private String tripsKey;
 
     @Override
@@ -90,69 +91,6 @@ public class Trips {
     public void setVibes(String vibes) {
         this.vibes = vibes;
     }
-    //    // Get vibes as List
-//    public List<String> getVibes() {
-//        if ((vibes == null || vibes.isEmpty()) && vibesString != null) {
-//            // If list is empty but string is not, parse the string
-//            vibes = new ArrayList<>(Arrays.asList(vibesString.split("\\s*,\\s*")));
-//        }
-//        return vibes;
-//    }
-//
-//    // Set vibes from List
-////    public void setVibes(List<String> vibes) {
-////        this.vibes = vibes;
-////        updateVibesString();
-////    }
-//
-//    // Set vibes from comma-separated string
-//    public void setVibes(String vibes) {
-//        if (vibes != null && !vibes.isEmpty()) {
-//            this.vibes = new ArrayList<>(Arrays.asList(vibes.split("\\s*,\\s*")));
-//            this.vibesString = vibes;
-//        }
-//    }
-
-//    // Get vibes as comma-separated string (for database)
-//    public String getVibesString() {
-//        if (vibesString == null && vibes != null) {
-//            updateVibesString();
-//        }
-//        return vibesString;
-//    }
-
-    // Update the string representation from the list
-//    private void updateVibesString() {
-//        if (vibes != null && !vibes.isEmpty()) {
-//            StringBuilder sb = new StringBuilder();
-//            for (String vibe : vibes) {
-//                if (sb.length() > 0) sb.append(",");
-//                sb.append(vibe.trim());
-//            }
-//            vibesString = sb.toString();
-//        } else {
-//            vibesString = "";
-//        }
-//    }
-
-    // Add a single vibe
-//    public void addVibe(String vibe) {
-//        if (vibes == null) {
-//            vibes = new ArrayList<>();
-//        }
-//        if (!vibes.contains(vibe)) {
-//            vibes.add(vibe);
-//            updateVibesString();
-//        }
-//    }
-
-    // Remove a vibe
-//    public void removeVibe(String vibe) {
-//        if (vibes != null) {
-//            vibes.remove(vibe);
-//            updateVibesString();
-//        }
-//    }
 
     public String getCategory() {
         return category;
@@ -182,5 +120,35 @@ public class Trips {
         return tripsKey;
     }
 
+    public String getPhone() {
+        return phone;
+    }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
