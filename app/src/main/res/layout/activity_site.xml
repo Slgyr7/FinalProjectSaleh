@@ -25,9 +25,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:contentDescription="@string/site_image"
                 app:layout_collapseMode="parallax"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@drawable/ic_launcher_foreground"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -62,9 +62,10 @@
                     android:id="@+id/siteName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textSize="24sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Trip Destination Name" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,26 +80,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="false"
-                        android:text="Category" />
+                        android:text="Category"
+                        tools:text="Adventure" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_weight="1" />
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_star_filled"
-                        android:contentDescription="@string/rating_icon_desc"
-                        app:tint="@color/rating_progress" />
-
                     <TextView
                         android:id="@+id/siteRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:drawablePadding="4dp"
+                        app:drawableStartCompat="@drawable/ic_star"
+                        tools:text="4.5" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -107,7 +105,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:contextClickable="true"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingStart="8dp"
@@ -119,7 +116,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/call"
+                    android:text="Call"
                     app:icon="@drawable/ic_phone" />
 
                 <com.google.android.material.button.MaterialButton
@@ -128,8 +125,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/website" />
-
+                    android:text="Website"
+                    app:icon="@drawable/ic_map" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDirections"
@@ -137,8 +134,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/directions"
-                    app:icon="@drawable/ic_location" />
+                    android:text="Directions"
+                    app:icon="@drawable/ic_location_on" />
             </LinearLayout>
 
             <!-- Vibes Tags Section -->
@@ -146,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/select_vibes"
+                android:text="Vibes"
                 android:textStyle="bold"
                 android:textColor="@color/black" />
 
@@ -155,6 +152,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp">
+                <!-- Example chips for preview -->
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chill"
+                    tools:visibility="visible" />
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nature"
+                    tools:visibility="visible" />
             </com.google.android.material.chip.ChipGroup>
 
             <!-- Detailed Information Card -->
@@ -176,56 +184,54 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        android:drawablePadding="16dp"
                         android:textColor="@color/black"
-                        app:drawableStartCompat="@drawable/ic_location"
-                        app:drawableTint="?attr/colorPrimary" />
+                        android:drawablePadding="12dp"
+                        app:drawableStartCompat="@drawable/ic_location_on"
+                        tools:text="123 Adventure Lane, Haifa, Israel" />
 
                     <TextView
                         android:id="@+id/sitePhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        android:drawablePadding="16dp"
+                        android:drawablePadding="12dp"
                         app:drawableStartCompat="@drawable/ic_phone"
-                        app:drawableTint="?attr/colorPrimary" />
+                        tools:text="+972 50 123 4567" />
+
+                    <TextView
+                        android:id="@+id/siteWebsite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:drawablePadding="12dp"
+                        app:drawableStartCompat="@drawable/ic_map"
+                        tools:text="www.tripdestination.com" />
 
                     <TextView
                         android:id="@+id/siteHours"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        android:drawablePadding="16dp"
+                        android:drawablePadding="12dp"
                         app:drawableStartCompat="@drawable/ic_schedule"
-                        app:drawableTint="?attr/colorPrimary" />
+                        tools:text="Open Daily: 09:00 - 18:00" />
 
                     <TextView
                         android:id="@+id/siteCost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="16dp"
+                        android:drawablePadding="12dp"
                         app:drawableStartCompat="@drawable/ic_attach_money"
-                        app:drawableTint="?attr/colorPrimary" />
+                        tools:text="Price: 50 ILS" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- Website Display (Optional text) -->
-            <TextView
-                android:id="@+id/siteWebsite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="12dp"
-                android:autoLink="web"
-                android:visibility="gone" />
 
             <!-- Description Section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/description"
+                android:text="Description"
                 android:textStyle="bold"
                 android:textColor="@color/black" />
 
@@ -235,21 +241,19 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:lineSpacingExtra="4dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                tools:text="This is a beautiful place to visit, known for its scenic views and peaceful atmosphere. Perfect for families and solo travelers alike." />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Corrected to ExtendedFloatingActionButton to match site.java -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/save"
-        app:icon="@drawable/ic_favorite_border"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        android:contentDescription="@string/save" />
+        android:src="@drawable/ic_favorite_border"
+        android:contentDescription="Add to favorites" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

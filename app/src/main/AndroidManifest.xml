@@ -16,7 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProjectSaleh">
-        
+
+        <!-- BAGRUT: Added the Admin Site Activity -->
+        <activity
+            android:name=".AdminSiteActivity"
+            android:exported="false" />
+            
+        <activity
+            android:name=".AdminTripsActivity"
+            android:exported="false" />
         <activity
             android:name=".AdminHomeScreen"
             android:exported="false" />

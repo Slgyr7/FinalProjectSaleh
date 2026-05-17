@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class Trips implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public long keyid;
+
     @ColumnInfo
     public String title;
     public String category;
@@ -21,75 +22,35 @@ public class Trips implements Serializable {
     public String attractionimage;
     private String vibes;
 
-    // Additional fields for Site Activity
+    // Additional fields for Detailed Info
     private String phone;
     private String website;
     private String hours;
     private String description;
+    
+    // BAGRUT: ownerUid stores the ID of the Admin who created this trip
+    private String ownerUid;
 
     @Ignore
     private String vibesString;
     private String tripsKey;
 
-    @Override
-    public String toString() {
-        return "Trips{" +
-                "keyid=" + keyid +
-                ", name=" + title +
-                ", Category=" + category +
-                ", Rating=" + rating +
-                ", Price=" + price +
-                ", Status='" + status + '\'' +
-                ", Addres='" + address + '\''+
-                ", Vibes='" + vibes + '\'' +
-                ", attractionimage='" + attractionimage + '\'' +
-                '}';
-    }
+    // --- GETTERS AND SETTERS (Standard Format) ---
+
     public long getKeyid() {
         return keyid;
     }
+
     public void setKeyid(long keyid) {
         this.keyid = keyid;
     }
+
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-    public double getPrice() {
-        return price;
-    }
-    public void setPrice(double price) {
-        this.price = price;
-    }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getVibes() {
-        return vibes;
-    }
-
-    public void setVibes(String vibes) {
-        this.vibes = vibes;
     }
 
     public String getCategory() {
@@ -100,6 +61,38 @@ public class Trips implements Serializable {
         this.category = category;
     }
 
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getAttractionimage() {
         return attractionimage;
     }
@@ -108,16 +101,12 @@ public class Trips implements Serializable {
         this.attractionimage = attractionimage;
     }
 
-    public void setVibesString(String vibesString) {
-        this.vibesString = vibesString;
+    public String getVibes() {
+        return vibes;
     }
 
-    public void setTripsKey(String tripsKey) {
-        this.tripsKey = tripsKey;
-    }
-
-    public String getTripsKey() {
-        return tripsKey;
+    public void setVibes(String vibes) {
+        this.vibes = vibes;
     }
 
     public String getPhone() {
@@ -150,5 +139,29 @@ public class Trips implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getOwnerUid() {
+        return ownerUid;
+    }
+
+    public void setOwnerUid(String ownerUid) {
+        this.ownerUid = ownerUid;
+    }
+
+    public String getTripsKey() {
+        return tripsKey;
+    }
+
+    public void setTripsKey(String tripsKey) {
+        this.tripsKey = tripsKey;
+    }
+
+    public String getVibesString() {
+        return vibesString;
+    }
+
+    public void setVibesString(String vibesString) {
+        this.vibesString = vibesString;
     }
 }

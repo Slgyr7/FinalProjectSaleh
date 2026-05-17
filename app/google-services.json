@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "732526560877",
+    "firebase_url": "https://finalprojectsaleh-default-rtdb.firebaseio.com",
     "project_id": "finalprojectsaleh",
     "storage_bucket": "finalprojectsaleh.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "saleh.nis.finalprojectsaleh"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "732526560877-5628pejo06su388kqddbsimqf0ghb805.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "saleh.nis.finalprojectsaleh",
+            "certificate_hash": "b1f9e61d5520ae76b53d33a471d2a67fa37e72b4"
+          }
+        },
+        {
+          "client_id": "732526560877-af9r3gesq34pqdea0tle3v38i5dpfaj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDvw3v8J8_W7y9XrrgIiR3mpSHKY2a34Pk"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732526560877-af9r3gesq34pqdea0tle3v38i5dpfaj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

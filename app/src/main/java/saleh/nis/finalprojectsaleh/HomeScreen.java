@@ -36,6 +36,16 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+        // BAGRUT: My Trips card - opens the favorites screen
+        CardView myTripsCard = findViewById(R.id.card_my_trips);
+        myTripsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this, my_trips.class);
+                startActivity(intent);
+            }
+        });
+
         CardView translateCard = findViewById(R.id.card_translator);
         translateCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +57,16 @@ public class HomeScreen extends AppCompatActivity {
                 if(translateIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(translateIntent);
                 }
+            }
+        });
+
+        // BAGRUT: Explore card - opens the explore activity
+        CardView exploreCard = findViewById(R.id.card_explore);
+        exploreCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this, explore.class);
+                startActivity(intent);
             }
         });
 
